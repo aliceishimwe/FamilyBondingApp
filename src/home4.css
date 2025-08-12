@@ -1,0 +1,121 @@
+Page background
+.mobile-wrapper {
+  background-color: #111;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile app container */
+.mobile-screen {
+  width: 430px;
+  height: 750px; /* reduced height */
+  border-radius: 20px;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden; /* hide scroll */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+/* Pink top bar */
+.top-bar {
+  background: linear-gradient(to bottom, #e00085, #d10078);
+  height: 120px; /* reduced height */
+  padding: 20px;
+  color: black;
+  position: relative;
+  z-index: 1;
+}
+
+.back-arrow {
+  font-size: 24px;
+}
+
+.status-icons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 14px;
+  color: black;
+}
+
+/* Overlapping gray form box */
+.form-box {
+  position: absolute;
+  top: 90px; /* adjusted to top bar */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d3d3d3;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  padding: 30px 10px; /* less horizontal padding */
+  overflow-y: hidden; /* or auto if needed */
+  z-index: 2;
+}
+/* Form Title */
+.form-box h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: black;
+}
+
+/* Input styling */
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  display: block;
+  width: 230px; /* fixed width */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 12px 40px 12px 35px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background-color: white;
+  color: black;
+}
+
+.input-group input::placeholder {
+  color: black;
+}
+
+.input-group .icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: black;
+}
+
+.input-group .eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: black;
+  cursor: pointer;
+}
+
+/* Signup button */
+.signup-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background-color: #d10078;
+  color: black;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.signup-button:hover {
+  background-color: #b80068;
+}

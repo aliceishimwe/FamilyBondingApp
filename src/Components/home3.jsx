@@ -68,7 +68,7 @@ const customStyles = `
   }
   .welcome-title {
     color: white;
-    font-size: 1.8rem; /* Adjust font size */
+    font-size: 1.6rem; /* Adjust font size */
     font-weight: bold;
     line-height: 1.2;
   }
@@ -124,7 +124,7 @@ const Home3 = () => {
         <div className="main-content">
           <div className="welcome-circle">
             <h1 className="welcome-title">
-              Welcome to <br /> Inkingi App
+              Welcome to <br /> FamilyBonding App
             </h1>
             <p className="welcome-subtitle">where Joy brings Togetherness</p>
           </div>
