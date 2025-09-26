@@ -1,0 +1,14 @@
+# Ignore dependencies
+node_modules/
+
+# Ignore build outputs
+dist/
+build/
+
+# Ignore environment files
+.env
+
+# Ignore system files
+.DS_Store
+.vscode/
+package-lock.json
