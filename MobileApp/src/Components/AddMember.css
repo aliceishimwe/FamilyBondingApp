@@ -1,0 +1,215 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.screen-add {
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+  background-color: #000;
+  height: 100vh;
+  overflow: hidden;
+
+}
+
+/* HEADER */
+.header-add {
+  height: 13vh;
+  background: transparent;
+  /* border-bottom-left-radius: 24px; */
+  border-bottom-right-radius: 40px;
+   border-bottom-left-radius: 40px;
+  padding: 10px 15px 20px;
+  bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+.header-add2 {
+  height: 67vh;
+  background: #d9d9d9;
+  margin-left: -22px;
+  width: 103%;
+  /* border-bottom-left-radius: 24px; */
+  border-top-right-radius: 35px;
+   border-top-left-radius: 35px;
+  padding:10px 15px 20px;
+  position: relative;
+  bottom: -10rem;
+  z-index: 2;
+  
+}
+
+.status-bar-add {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #161616;
+}
+
+.status-icons-add {
+  display: flex;
+  gap: 5px;
+}
+
+.nav-icons-add {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 36px;
+}
+
+.nav-icon-add {
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+}
+
+.bell-container-add {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  margin-right: 15px;
+}
+
+.green-dot-add {
+  position: absolute;
+  top: 0;
+  right: 59px;
+  width: 10px;
+  height: 10px;
+  background-color: limegreen;
+  border-radius: 50%;
+}
+
+/* CONTENT */
+.content-add {
+  background: linear-gradient(to bottom, #cc197c, #86014c);
+  /* border-top-left-radius: 30px;
+  border-top-right-radius: 30px; */
+  margin-top: -130px; /* Overlap effect */
+  padding: 20px;
+ height: 100%;
+}
+
+.title-add {
+  margin-top: 80px;
+}
+
+.white-text-add {
+ color: rgb(221, 216, 216);
+  font-weight: bold;
+}
+
+.black-text-add {
+  color: rgb(49, 49, 49);
+}
+
+.question-add {
+  color: rgb(221, 216, 216);
+  margin-top: 30px;
+  line-height: 1.5;
+}
+.btn-tangira-add{
+  background-color: #cc197c;
+  height: 50px;
+  width: 90%;
+  border-radius: 25px;
+  position: relative;
+  bottom: -3rem;
+}
+.h2-add{
+  color: #cc197c;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+.p-add{
+  margin: 0px;
+}
+.profile-add{
+  width: 45px;
+  height: 45px;
+  background-color: #bebaba;
+  border-radius: 50%;
+  display: flex;
+  position: relative;
+  top: -4px;
+}
+.profile-icon-add{
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  .signup-title-add {
+    color: rgb(38, 36, 36);
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1.5rem;
+  }
+  .main-content-add {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  .input-group-add {
+    background: #f0f0f0; /* Light gray background for input fields */
+    border-radius: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: none; /* No shadow on inputs to match the image */
+  }
+  .input-group-add input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background: transparent; /* Transparent background to show parent's gray color */
+    font-size: 1rem;
+    color: black;
+  }
+  .input-group-add input::placeholder {
+    color: #a0a0a0;
+  }
+  .input-group-add .icon-add {
+    color: #a0a0a0;
+  }
+  .input-group-add .password-toggle-add {
+    cursor: pointer;
+  }
+  .signup-button-add{
+    background: #eb1695; /* Solid color as per the image */
+    color: white;
+    font-size: 1.25rem;
+
+    padding: 1rem;
+    border-radius: 1.5rem;
+    border: none;
+    width: 100%;
+    margin-top: 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+  }
+    .signup-button-add2 {
+    background: #eb1695; /* Solid color as per the image */
+    color: white;
+    font-size: 1.25rem;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    border: none;
+    width: 50%;
+    position: relative;
+    top: 8rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+  }
+  .signup-button-add:hover {
+    background: #d4145a;
+  }
+
+  

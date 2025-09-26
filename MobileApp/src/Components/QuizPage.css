@@ -1,0 +1,167 @@
+
+.quiz-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #000;
+  font-family: sans-serif;
+}
+
+/* HEADER */
+.header-section {
+  background: #d9d9d9;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding: 10px 16px 14px;
+  width: 100%;
+  max-width: 408px;
+  position: relative;
+  z-index: 2;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.status-icons {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bell-wrapper {
+  position: relative;
+}
+
+.notification-dot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 7px;
+  height: 7px;
+  background: #00ff5f;
+  border-radius: 50%;
+}
+
+/* MAIN SECTION */
+.main-section {
+  background: linear-gradient(to bottom, #db257d, #720247);
+  padding: 20px;
+  width: 100%;
+  height: 620px;
+  max-width: 400px;
+  margin-top: -15px;
+  z-index: 1;
+  position: relative;
+}
+
+.quiz-title {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: white;
+}
+
+.quiz-question-number {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.question-white {
+  color: white;
+}
+
+.number-highlight {
+  color: #fff;
+}
+
+.total-black {
+  font-size: 14px;
+  color: black;
+}
+
+.quiz-question {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: white;
+}
+
+/* ANSWERS */
+.answer-btn {
+  background: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.answer-text {
+  color: black;
+}
+
+.radio-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radio-selected {
+  border-color: #3b82f6;
+}
+
+.radio-dot {
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border-radius: 50%;
+}
+
+/* PAGINATION */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot.blue {
+  background-color: #3b82f6;
+}
+
+.dot.white {
+  background-color: white;
+}
