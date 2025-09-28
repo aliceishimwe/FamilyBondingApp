@@ -2732,7 +2732,7 @@ const notifications = [
         ))}
 
         <div className="arrow-down">
-          <ChevronsDown style={{color:"#fff"}} size={41}></ChevronsDown>
+          <ChevronsDown style={{color:"#fff"}} size={41} onClick={()=>setPage('ChartBoard')}></ChevronsDown>
         </div>
       </div>
     </div>
@@ -3014,170 +3014,451 @@ const Home8 = ({ setPage }) => {
 
 
 
-
-
-// import {
+import { useRef } from "react";
+import {
+  
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  serverTimestamp,
+  deleteDoc,
  
-//   addDoc,
-//   query,
-//   orderBy,
-//   onSnapshot,
-//   serverTimestamp
-// } from "firebase/firestore";
-// import EmojiPicker from "emoji-picker-react";
+  updateDoc,
+  arrayUnion
+} from "firebase/firestore";
+import EmojiPicker from "emoji-picker-react";
+ // <- adjust path if needed
+import "./ChartBoard.css";
 
+/**
+ * NOTE:
+ * - Make sure EmojiPicker is installed: npm i emoji-picker-react
+ * - Replace Cloudinary config in uploadToCloudinary below with your cloud name & preset.
+ */
 
-// // 🔹 Cloudinary Upload Function
-// const uploadToCloudinary = async (file) => {
-//   const formData = new FormData();
-//   formData.append("file", file);
+/* ---------------- Cloudinary upload utility ---------------- */
+const uploadToCloudinary = async (file) => {
+  if (!file) return null;
+  const formData = new FormData();
+  formData.append("file", file);
 
-//   // ⚠️ Replace with your actual unsigned upload preset from Cloudinary
-//   formData.append("upload_preset", "charts_preset");
+  // <<-- REPLACE these with your values
+  formData.append("upload_preset", "charts_preset");
+  const cloudName = "dzorwdfjc"; // replace with yours
+  // ----------------------------------------------------------
 
-//   // ⚠️ Replace with your actual Cloudinary cloud name
-//   const response = await fetch(
-//     "https://api.cloudinary.com/v1_1/dzorwdfjc/upload",
-//     {
-//       method: "POST",
-//       body: formData,
-//     }
-//   );
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
+    { method: "POST", body: formData }
+  );
+  const data = await response.json();
+  return {
+    url: data.secure_url,
+    resource_type: data.resource_type || (file.type.startsWith("audio") ? "audio" : "image"),
+  };
+};
 
-//   const data = await response.json();
-//   return data.secure_url; // URL to save in Firestore
-// };
+/* ---------------- Timestamp formatter ---------------- */
+const formatTimestamp = (ts) => {
+  if (!ts) return "";
+  try {
+    const d = ts.toDate();
+    return d.toLocaleString();
+  } catch {
+    return "";
+  }
+};
 
-// // 🔹 Utility: format timestamp
-// const formatTimestamp = (timestamp) => {
-//   if (!timestamp) return "";
-//   const date = timestamp.toDate();
-//   return date.toLocaleString();
-// };
-
-// const ChatBoard = () => {
-//   const [messages, setMessages] = useState([]);
-//   const [newMessage, setNewMessage] = useState("");
-//   const [replyTo, setReplyTo] = useState(null);
-//   const [file, setFile] = useState(null);
-//   const [showEmoji, setShowEmoji] = useState(false);
-
-//   // 🔹 Fetch messages in real time
-//   useEffect(() => {
-//     const q = query(
-//       collection(db, "chats", "familyBoard", "messages"),
-//       orderBy("timestamp", "asc")
-//     );
-//     const unsubscribe = onSnapshot(q, (snapshot) => {
-//       setMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-//     });
-//     return unsubscribe;
-//   }, []);
-
-//   // 🔹 Send new message
-//   const sendMessage = async () => {
-//     if (!newMessage && !file) return;
-
-//     let fileUrl = null;
-//     if (file) {
-//       fileUrl = await uploadToCloudinary(file);
-//     }
-
-//     await addDoc(collection(db, "chats", "familyBoard", "messages"), {
-//       senderId: auth.currentUser?.uid || "guest",
-//       senderName: auth.currentUser?.email || "Unknown",
-//       text: newMessage,
-//       replyTo,
-//       fileUrl,
-//       timestamp: serverTimestamp(),
-//     });
-
-//     setNewMessage("");
-//     setFile(null);
-//     setReplyTo(null);
-//   };
-
-//   return (
-//     <div className="chat-board">
-//       <h2>Family Chat Board</h2>
-
-//       {/* 🔹 Messages List */}
-//       <div className="messages">
-//         {messages.map((msg) => (
-//           <div key={msg.id} className="message">
-//             <div className="message-header">
-//               <div className="avatar">
-//                 {msg.senderName?.charAt(0).toUpperCase() || "?"}
-//               </div>
-//               <div className="sender-info">
-//                 <span className="sender-name">{msg.senderName}</span>
-//                 <span className="timestamp">{formatTimestamp(msg.timestamp)}</span>
-//               </div>
-//             </div>
-
-//             <div className="message-body">
-//               {msg.text && <p>{msg.text}</p>}
-
-//               {msg.fileUrl &&
-//                 (msg.fileUrl.match(/\.(jpeg|jpg|png|gif)$/) ? (
-//                   <img
-//                     src={msg.fileUrl}
-//                     alt="uploaded"
-//                     className="chat-image"
-//                   />
-//                 ) : (
-//                   <a
-//                     href={msg.fileUrl}
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                   >
-//                     📎 File
-//                   </a>
-//                 ))}
-
-//               {msg.replyTo && (
-//                 <div className="reply-to">Replying to: {msg.replyTo}</div>
-//               )}
-//             </div>
-
-//             <div className="message-actions">
-//               <button onClick={() => setReplyTo(msg.text)}>Reply</button>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* 🔹 Replying notice */}
-//       {replyTo && <div className="replying-to">Replying to: {replyTo}</div>}
-
-//       {/* 🔹 Input Area */}
-//       <div className="input-area">
-//         <button onClick={() => setShowEmoji(!showEmoji)}>😊</button>
-//         {showEmoji && (
-//           <EmojiPicker
-//             onEmojiClick={(emojiData) =>
-//               setNewMessage(newMessage + emojiData.emoji)
-//             }
-//           />
-//         )}
-//         <input
-//           type="text"
-//           placeholder="Type a message..."
-//           value={newMessage}
-//           onChange={(e) => setNewMessage(e.target.value)}
-//         />
-//         <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-//         <button onClick={sendMessage}>Send</button>
-//       </div>
-//     </div>
-//   );
-// };
+/* ---------------- ChartBoard Component ---------------- */
+const ChartBoard = ({setPage}) => {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [replyTo, setReplyTo] = useState(null);
+  const [file, setFile] = useState(null);
+  const [showBottomEmoji, setShowBottomEmoji] = useState(false);
+  const [pickerFor, setPickerFor] = useState(null); // messageId when picking emoji for a message
+  const [showMenuFor, setShowMenuFor] = useState(null); // three-dots menu open
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const messagesEndRef = useRef(null);
+  const messagesCollectionPath = collection(db, "chats", "familyBoard", "messages");
+ const [editMessageId, setEditMessageId] = useState(null);
+ const [editText, setEditText] = useState("");
+ const [theme, setTheme] = useState("black"); // default theme
+const [showThemeMenu, setShowThemeMenu] = useState(false);
 
 
 
+  const currentUid = auth?.currentUser?.uid;
+  const currentName = auth?.currentUser?.email || auth?.currentUser?.displayName || "You";
+
+  /* ---- realtime subscription ---- */
+  useEffect(() => {
+    const q = query(messagesCollectionPath, orderBy("timestamp", "asc"));
+    const unsub = onSnapshot(q, (snap) => {
+      setMessages(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+      // scroll handled in separate effect
+    });
+    return unsub;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* ---- auto scroll to bottom on new messages ---- */
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages]);
+
+  /* ---- send message (text/file/audio) ---- */
+const sendMessage = async () => {
+  if (!newMessage && !file) return;
+
+  let fileUrl = null;
+  if (file) {
+    fileUrl = await uploadToCloudinary(file);
+  }
+
+  let senderName = "Unknown";
+  let senderPic = null;
+
+  if (auth.currentUser) {
+    const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
+    if (userDoc.exists()) {
+      const data = userDoc.data();
+      senderName = data.fullName || auth.currentUser.email;
+      senderPic = data.photoURL || null;
+    } else {
+      senderName = auth.currentUser.email;
+    }
+  }
+
+  if (editMessageId) {
+    // EDIT existing message
+    const docRef = doc(db, "chats", "familyBoard", "messages", editMessageId);
+    await updateDoc(docRef, {
+      text: newMessage,
+      fileUrl: fileUrl || null,
+      timestamp: serverTimestamp()
+    });
+    setEditMessageId(null); // clear editing mode
+  } else {
+    // SEND new message
+    await addDoc(collection(db, "chats", "familyBoard", "messages"), {
+      senderId: auth.currentUser?.uid || "guest",
+      senderName,
+      senderPic,
+      text: newMessage,
+      replyTo,
+      fileUrl,
+      timestamp: serverTimestamp(),
+    });
+  }
+
+  setNewMessage("");
+  setFile(null);
+  setReplyTo(null);
+};
+
+  /* ---- add reaction to message (emoji) ---- */
+  const addReaction = async (messageId, emoji) => {
+    const docRef = doc(db, "chats", "familyBoard", "messages", messageId);
+    await updateDoc(docRef, {
+      reactions: arrayUnion({
+        uid: currentUid || "guest",
+        emoji,
+      }),
+    });
+    setPickerFor(null);
+  };
+
+  /* ---- copy message text ---- */
+  const copyText = async (text) => {
+    try {
+      if (!text) return;
+      await navigator.clipboard.writeText(text);
+      // small UI feedback could be added
+    } catch (err) {
+      console.warn("Copy failed", err);
+    }
+    setShowMenuFor(null);
+  };
+
+  /* ---- unsend (delete) message ---- */
+  const unsendMessage = async (messageId, msgSenderId) => {
+    // only allow unsend if current user is sender
+    if (!currentUid || currentUid !== msgSenderId) {
+      alert("You can only unsend your own messages.");
+      return;
+    }
+    if (!confirm("Unsend this message for everyone?")) return;
+    await deleteDoc(doc(db, "chats", "familyBoard", "messages", messageId));
+    setShowMenuFor(null);
+  };
+
+  /* ---- reply action ---- */
+  const startReplyTo = (msg) => {
+    setReplyTo({ id: msg.id, text: msg.text, senderName: msg.senderName });
+    // focus input maybe
+  };
+
+  /* ---- voice recording helpers ---- */
+  const startRecording = async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      alert("Recording not supported in this browser.");
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mr = new MediaRecorder(stream);
+      mediaRecorderRef.current = mr;
+      audioChunksRef.current = [];
+
+      mr.ondataavailable = (e) => {
+        audioChunksRef.current.push(e.data);
+      };
+      mr.onstop = async () => {
+        const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        const fileForUpload = new File([blob], `voice-${Date.now()}.webm`, { type: "audio/webm" });
+        const uploaded = await uploadToCloudinary(fileForUpload);
+        if (uploaded) {
+          await addDoc(messagesCollectionPath, {
+            senderId: currentUid || "guest",
+            senderName: currentName,
+            text: "",
+            fileUrl: uploaded.url,
+            fileType: uploaded.resource_type || "audio",
+            replyTo: replyTo ? { id: replyTo.id, text: replyTo.text, senderName: replyTo.senderName } : null,
+            reactions: [],
+            timestamp: serverTimestamp(),
+          });
+        }
+        setIsRecording(false);
+        setReplyTo(null);
+      };
+
+      mr.start();
+      setIsRecording(true);
+    } catch (err) {
+      console.error("Recording error:", err);
+      alert("Could not start recording: " + err.message);
+    }
+  };
+
+  const stopRecording = () => {
+    mediaRecorderRef.current?.stop();
+  };
+
+  /* ---- rendering helpers ---- */
+  const groupedReactions = (reactions = []) => {
+    const map = new Map();
+    reactions.forEach((r) => {
+      map.set(r.emoji, (map.get(r.emoji) || 0) + 1);
+    });
+    return Array.from(map.entries()); // [ [emoji, count], ... ]
+  };const editMessage = (messageId, text) => {
+  setEditMessageId(messageId);
+  setNewMessage(text); // load message into input box
+  setShowMenuFor(null); // close menu
+};
+
+const changeTheme = (selectedTheme) => {
+  setTheme(selectedTheme);
+  setShowThemeMenu(false);
+};
+
+
+  return (
+    <div className="chat-board">
+  <ChevronLeft size={30} onClick={()=>setPage('Notifications')}></ChevronLeft>
+      <h2>Family Chat Board</h2>
+
+      <div className="messages">
+        {messages.map((msg) => {
+          const mine = msg.senderId === currentUid;
+          return (
+            <div
+              key={msg.id}
+              className={`message ${mine ? "message--me" : "message--other"}`}
+            >
+              <div className="message-row">
+                {/* avatar */}
+                <div className="avatar">
+                  {msg.senderPic ? (
+    <img src={msg.senderPic} alt={msg.senderName} className="avatar-img" />
+  ) : (
+    msg.senderName?.charAt(0).toUpperCase() || "?"
+  )}
+                </div>
+
+                <div className="bubble-wrap">
+                  <div className="message-header">
+                    <span className="sender-name">{msg.senderName}</span>
+                    <span className="timestamp">{formatTimestamp(msg.timestamp)}</span>
+                  </div>
+
+                  {/* reply preview */}
+                  {msg.replyTo && (
+                    <div className="reply-preview">
+                      <span className="reply-label">You replied to {msg.replyTo.senderName}:</span>
+                      <div className="reply-text">{msg.replyTo.text}</div>
+                    </div>
+                  )}
+
+                  {/* message bubble */}
+                  <div className="bubble">
+                 {msg.text && <p className="bubble-text">{msg.text}</p>}
 
 
 
+                    {/* file: image or audio */}
+                    {msg.fileUrl && (msg.fileType === "audio" || msg.fileUrl.match(/audio|webm|wav|mp3/)) ? (
+                      <audio controls src={msg.fileUrl} className="chat-audio" />
+                    ) : msg.fileUrl ? (
+                      // image or other file
+                      msg.fileUrl.match(/\.(jpeg|jpg|png|gif)$/) ? (
+                        <img src={msg.fileUrl} alt="uploaded" className="chat-image" />
+                      ) : (
+                        <a href={msg.fileUrl} target="_blank" rel="noreferrer" className="file-link">📎 Open file</a>
+                      )
+                    ) : null}
+                  </div>
+
+                  {/* reactions display */}
+                  {msg.reactions?.length > 0 && (
+                    <div className="reactions">
+                      {groupedReactions(msg.reactions).map(([emoji, count]) => (
+                        <div key={emoji} className="reaction-pill">{emoji} {count}</div>
+                      ))}
+                    </div>
+                  )}
+
+                </div>
+
+                {/* actions shown on hover (CSS will reveal this area) */}
+                <div className="message-actions">
+                  <button
+                    className="action-btn"
+                    title="React"
+                    onClick={() => setPickerFor(pickerFor === msg.id ? null : msg.id)}
+                  >😊</button>
+
+                  <button
+                    className="action-btn"
+                    title="Reply"
+                    onClick={() => startReplyTo(msg)}
+                  >↩</button>
+
+                  <div className="three-dots">
+                    <button
+                      className="action-btn"
+                      onClick={() => setShowMenuFor(showMenuFor === msg.id ? null : msg.id)}
+                      title="More"
+                    >⋯</button>
+
+{showMenuFor === msg.id && (
+  <div className="menu-dropdown">
+    <button onClick={() => copyText(msg.text)}>Copy</button>
+    {mine && <button onClick={() => editMessage(msg.id, msg.text)}>Edit</button>}
+    {mine && <button onClick={() => unsendMessage(msg.id, msg.senderId)}>Unsend</button>}
+  </div>
+)}
+
+                  </div>
+
+                  {/* emoji picker for this message (popover) */}
+                  {pickerFor === msg.id && (
+                    <div className="inline-emoji-picker">
+                      <EmojiPicker
+                        onEmojiClick={(e) => addReaction(msg.id, e.emoji)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* bottom anchor to scroll to */}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* replying banner */}
+      {replyTo && (
+        <div className="replying-to">
+          Replying to <strong>{replyTo.senderName}</strong>: "{replyTo.text}"
+          <button className="cancel-reply" onClick={() => setReplyTo(null)}>✕</button>
+        </div>
+      )}
+
+      {/* input area */}
+      
+      <div className="input-area">
+        {editMessageId && (
+  <button
+    className="cancel-edit"
+    title="Cancel editing"
+    onClick={() => { setEditMessageId(null); setNewMessage(""); }}
+  >
+    ×
+  </button>
+)}
+
+        <div className="left-controls">
+          <button
+            className="icon-btn"
+            onClick={() => setShowBottomEmoji(!showBottomEmoji)}
+            title="Emoji"
+          >😊</button>
+
+          <button
+            className={`icon-btn ${isRecording ? "recording" : ""}`}
+            onMouseDown={() => {
+              // long press could be used; here simple toggle
+              if (!isRecording) startRecording();
+            }}
+            onMouseUp={() => {
+              if (isRecording) stopRecording();
+            }}
+            title="Hold to record (or click to start)"
+          >
+            🎙
+          </button>
+
+          <label className="file-label" title="Attach image or file">
+            📎
+            <input
+              type="file"
+              accept="image/*,audio/*"
+              style={{ display: "none" }}
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </label>
+        </div>
+
+        <input
+          type="text"
+          placeholder="Message..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") sendMessage(); }}
+        />
+
+        <button className="send-btn" onClick={sendMessage}>Send</button>
+
+        {showBottomEmoji && (
+          <div className="bottom-emoji-pop">
+            <EmojiPicker
+              onEmojiClick={(ev) => setNewMessage((m) => m + ev.emoji)}
+            />
+          </div>
+        )}
+        
+      </div>
+    </div>
+  );
+};
 
 
 
@@ -3688,6 +3969,7 @@ export default function App() {
       {page === "Home6" && <Home6 setPage={setPage} />}
       {page === "Home7" && <Home7 setPage={setPage} />}
       {page === "Home8" && <Home8 setPage={setPage} />}
+      {page === "ChartBoard" && <ChartBoard setPage={setPage} />}
 
 
 
