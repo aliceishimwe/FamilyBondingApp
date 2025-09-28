@@ -15,7 +15,9 @@
   overflow: hidden;
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
 }
-
+.ChevronLeftChart:hover{
+cursor: pointer;
+}
 /* header */
 .chat-board h2 {
   margin: 0;
@@ -77,18 +79,31 @@
   font-size: 16px;
   overflow: hidden;
   flex-shrink: 0;
+  position: relative;
 }
 
-.avatar-img {
-  width: 100%;
+.avatar-img-chart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
   height: 100%;
+  transform: translate(-50%, -50%);
   object-fit: cover;
-  transform: scale(0.5); 
+  border-radius: 50%;
 }
-.avatar-img:hover {
-  transform: scale(0.8);  /* zoom effect on hover */
+
+.avatar-img-chart.landscape {
+  width: 100%;
+  height: auto;
+}
+
+.avatar-img-chart:hover {
+  transform: translate(-50%, -50%) scale(1.20);
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
+
 /* bubble wrapper (header + bubble + reactions) */
 .bubble-wrap {
   max-width: 78%;

@@ -806,10 +806,41 @@ const customStyles = `
   font-weight: bold;
   }
   
-  .arrow-down {
-    text-align: center;
-    margin-top: 20px;
+.arrow-down {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 32px;                 /* adjust arrow size if it's text/svg */
+  color: #ff6b81;                  /* arrow color */
+  animation: bounce 1.5s infinite ease-in-out, glow 2s infinite ease-in-out;
+}
+
+.arrow-down:hover {
+  cursor: pointer;
+  animation-play-state: paused;    /* pause both animations on hover */
+}
+
+/* 🔹 Bounce up and down */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
   }
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+/* 🔹 Glow / pulse effect */
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 4px rgba(255, 107, 129, 0.6),
+                 0 0 12px rgba(255, 107, 129, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 8px rgba(255, 107, 129, 0.9),
+                 0 0 20px rgba(255, 107, 129, 0.8);
+  }
+}
+
 
   /* Quiz Pages styles */
   .quiz-wrapper {
@@ -1621,6 +1652,7 @@ const customStyles = `
   border-radius: 16px;
   box-shadow: 0 6px 18px  rgba(0, 0, 0, 0.08);
 }
+
 
 
 
@@ -2732,7 +2764,7 @@ const notifications = [
         ))}
 
         <div className="arrow-down">
-          <ChevronsDown style={{color:"#fff"}} size={41} onClick={()=>setPage('ChartBoard')}></ChevronsDown>
+          <ChevronsDown className="ChevronsDown" style={{color:"#fff"}} size={41} onClick={()=>setPage('ChartBoard')}></ChevronsDown>
         </div>
       </div>
     </div>
@@ -3270,7 +3302,7 @@ const changeTheme = (selectedTheme) => {
 
   return (
     <div className="chat-board">
-  <ChevronLeft size={30} onClick={()=>setPage('Notifications')}></ChevronLeft>
+  <ChevronLeft size={30} onClick={()=>setPage('Notifications')} className="ChevronLeftChart"></ChevronLeft>
       <h2>Family Chat Board</h2>
 
       <div className="messages">
@@ -3285,7 +3317,7 @@ const changeTheme = (selectedTheme) => {
                 {/* avatar */}
                 <div className="avatar">
                   {msg.senderPic ? (
-    <img src={msg.senderPic} alt={msg.senderName} className="avatar-img" />
+    <img src={msg.senderPic} alt={msg.senderName} className="avatar-img-chart landscape" />
   ) : (
     msg.senderName?.charAt(0).toUpperCase() || "?"
   )}
