@@ -407,3 +407,28 @@ cursor: pointer;
   .bubble { max-width: 92%; }
   .chat-image { width: 180px; }
 }
+
+.chat-image {
+  max-width: 220px;
+  border-radius: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.chat-video {
+  max-width: 250px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.chat-audio {
+  margin-top: 5px;
+  width: 200px;
+}
+
+.file-link {
+  display: inline-block;
+  margin-top: 5px;
+  color: #1d72b8;
+  text-decoration: underline;
+}

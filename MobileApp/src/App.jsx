@@ -1783,6 +1783,9 @@ const Home2 = ({ setPage }) => {
   );
 };
 
+import "./LoginForm.css";
+
+
 
 const SignupForm = ({ setPage }) => {
   const { t } = useLanguage();
@@ -1793,23 +1796,15 @@ const SignupForm = ({ setPage }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-    if (!email) {
-      alert("Please enter a valid email address.");
-      return;
-    }
+    // Validation first
+    if (password !== confirmPassword || !email) return;
 
+    setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       await setDoc(doc(db, "users", user.uid), {
@@ -1819,16 +1814,24 @@ const SignupForm = ({ setPage }) => {
         password,
       });
 
-      alert("Sign up successful!");
-      setPage("LoginForm");
+      // Smooth transition to LoginForm
+      setTimeout(() => {
+        setLoading(false);
+        setPage("LoginForm");
+      }, 1000);
     } catch (error) {
       console.error("Error during sign-up:", error);
-      alert(`Sign up failed: ${error.message}`);
+
+      // Still show loader briefly before going back to SignupForm
+      setTimeout(() => {
+        setLoading(false);
+        setPage("SignupForm");
+      }, 1000);
     }
   };
 
-   const StatusIcons = () => (
-    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
+  const StatusIcons = () => (
+    <div className="status-icons" style={{ display: "flex", gap: "5px" }}>
       <svg width="20" height="12" viewBox="0 0 20 12">
         <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
         <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
@@ -1846,46 +1849,93 @@ const SignupForm = ({ setPage }) => {
 
   return (
     <div className="mobile-frame">
-              <div className="top-bar">
-                <ChevronLeft size={24} className="back-arrow" onClick={() => setPage('Home2')} />
-                <StatusIcons />
-              </div>
-              <div className="form-box">
-                <h2>{t("signup")}</h2>
-                <div className="input-group">
-                  <User size={20} className="icon" />
-                  <input type="text" placeholder={t("fullName")} value={fullName} onChange={(e) => setFullName(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <Phone size={20} className="icon" />
-                  <input type="tel" placeholder={t("phone")}  value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <Home size={20} className="icon" />
-                  <input type="email" placeholder={t("email")} value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <Lock size={20} className="icon" />
-                  <input type={showPassword ? "text" : "password"} placeholder={t("password")} value={password} onChange={(e) => setPassword(e.target.value)} />
-                  <span className="password-toggle" onClick={setShowPassword}>
-                    {showPassword ? <EyeOff size={20} className="icon" /> : <Eye size={20} className="icon" />}
-                  </span>
-                </div>
-                <div className="input-group">
-                  <Lock size={20} className="icon" />
-                  <input type={showConfirmPassword ? "text" : "password"} placeholder={t("confirmPassword")} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                  <span className="password-toggle" onClick={setShowConfirmPassword}>
-                    {showConfirmPassword ? <EyeOff size={20} className="icon" /> : <Eye size={20} className="icon" />}
-                  </span>
-                </div>
-                <button className="signup-button" onClick={handleSignup}>{t("signup")}</button>
-                <div className="login-link">
-                   {t("alreadyAccount")}{" "} <a href="#" onClick={() => setPage('LoginForm')}> {t("login")}</a>
-                </div>
-              </div>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <p>Creating account...</p>
+        </div>
+      )}
+
+      <div className="top-bar">
+        <ChevronLeft size={24} className="back-arrow" onClick={() => setPage("Home2")} />
+        <StatusIcons />
+      </div>
+
+      <div className="form-box">
+        <h2>{t("signup")}</h2>
+
+        <div className="input-group">
+          <User size={20} className="icon" />
+          <input
+            type="text"
+            placeholder={t("fullName")}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+        </div>
+
+        <div className="input-group">
+          <Phone size={20} className="icon" />
+          <input
+            type="tel"
+            placeholder={t("phone")}
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+        </div>
+
+        <div className="input-group">
+          <Home size={20} className="icon" />
+          <input
+            type="email"
+            placeholder={t("email")}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div className="input-group">
+          <Lock size={20} className="icon" />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder={t("password")}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <EyeOff size={20} className="icon" /> : <Eye size={20} className="icon" />}
+          </span>
+        </div>
+
+        <div className="input-group">
+          <Lock size={20} className="icon" />
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder={t("confirmPassword")}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <span className="password-toggle" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+            {showConfirmPassword ? <EyeOff size={20} className="icon" /> : <Eye size={20} className="icon" />}
+          </span>
+        </div>
+
+        <button className="signup-button" onClick={handleSignup}>
+          {t("signup")}
+        </button>
+
+        <div className="login-link">
+          {t("alreadyAccount")}{" "}
+          <a href="#" onClick={() => setPage("LoginForm")}>
+            {t("login")}
+          </a>
+        </div>
+      </div>
     </div>
   );
 };
+
+
 
 
 const LoginForm = ({ setPage }) => {
@@ -1893,20 +1943,26 @@ const LoginForm = ({ setPage }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    if (!email || !password) return; // optional: simple check
+
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login successful!");
-      setPage("StartQuiz");
+      setTimeout(() => {
+        setLoading(false);
+        setPage("StartQuiz");
+      }, 1000); // slight smooth transition
     } catch (error) {
       console.error("Error during login:", error);
-      alert(`Login failed: ${error.message}`);
+      setLoading(false);
     }
   };
 
-     const StatusIcons = () => (
-    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
+  const StatusIcons = () => (
+    <div className="status-icons" style={{ display: "flex", gap: "5px" }}>
       <svg width="20" height="12" viewBox="0 0 20 12">
         <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
         <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
@@ -1924,28 +1980,56 @@ const LoginForm = ({ setPage }) => {
 
   return (
     <div className="mobile-frame">
-          <div className="top-bar">
-                <ChevronLeft size={24} className="back-arrow" onClick={() => setPage('Home2')} />
-                <StatusIcons />
-              </div>
-              <div className="form-box">
-                <h2>{t("login")}</h2>
-                <div className="input-group">
-                  <Home size={20} className="icon" />
-                  <input type="email" placeholder={t("email")} value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <Lock size={20} className="icon" />
-                  <input type={showPassword ? "text" : "password"} placeholder={t("password")} value={password} onChange={(e) => setPassword(e.target.value)} />
-                  <span className="password-toggle" onClick={setShowPassword}>
-                    {showPassword ? <EyeOff size={20} className="icon" /> : <Eye size={20} className="icon" />}
-                  </span>
-                </div>
-                <button className="signup-button" onClick={handleLogin}>{t("login")}</button>
-                <div className="login-link">
-                    {t("dontHaveAccount")}{" "}<a href="#" onClick={() => setPage('SignupForm')}>{t("signup")}</a>
-                </div>
-              </div>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <p>Verifying credentials...</p>
+        </div>
+      )}
+      <div className="top-bar">
+        <ChevronLeft size={24} className="back-arrow" onClick={() => setPage("Home2")} />
+        <StatusIcons />
+      </div>
+      <div className="form-box">
+        <h2>{t("login")}</h2>
+        <div className="input-group">
+          <Home size={20} className="icon" />
+          <input
+            type="email"
+            placeholder={t("email")}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="input-group">
+          <Lock size={20} className="icon" />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder={t("password")}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span
+            className="password-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <EyeOff size={20} className="icon" />
+            ) : (
+              <Eye size={20} className="icon" />
+            )}
+          </span>
+        </div>
+        <button className="signup-button" onClick={handleLogin}>
+          {t("login")}
+        </button>
+        <div className="login-link">
+          {t("dontHaveAccount")}{" "}
+          <a href="#" onClick={() => setPage("SignupForm")}>
+            {t("signup")}
+          </a>
+        </div>
+      </div>
     </div>
   );
 };
@@ -3147,19 +3231,27 @@ const sendMessage = async () => {
   if (!newMessage && !file) return;
 
   let fileUrl = null;
+  let fileType = null;
+
+  // ⬇️ Upload file to Cloudinary if attached
   if (file) {
-    fileUrl = await uploadToCloudinary(file);
+    const uploaded = await uploadToCloudinary(file);
+
+    // Cloudinary response should have secure_url + resource_type
+    fileUrl = uploaded.secure_url || uploaded.url || null;
+    fileType = uploaded.resource_type || detectFileType(file.name);
   }
 
   let senderName = "Unknown";
   let senderPic = null;
 
+  // ⬇️ Get sender name + profile picture from Firestore
   if (auth.currentUser) {
     const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
     if (userDoc.exists()) {
       const data = userDoc.data();
       senderName = data.fullName || auth.currentUser.email;
-      senderPic = data.photoURL || null;
+      senderPic = data.photoURL || null; // ✅ this is ONLY for profile picture
     } else {
       senderName = auth.currentUser.email;
     }
@@ -3170,19 +3262,21 @@ const sendMessage = async () => {
     const docRef = doc(db, "chats", "familyBoard", "messages", editMessageId);
     await updateDoc(docRef, {
       text: newMessage,
-      fileUrl: fileUrl || null,
-      timestamp: serverTimestamp()
+      fileUrl,   // ✅ store under fileUrl
+      fileType,  // ✅ store type
+      timestamp: serverTimestamp(),
     });
-    setEditMessageId(null); // clear editing mode
+    setEditMessageId(null);
   } else {
     // SEND new message
     await addDoc(collection(db, "chats", "familyBoard", "messages"), {
       senderId: auth.currentUser?.uid || "guest",
       senderName,
-      senderPic,
+      senderPic, // ✅ profile pic stays here
       text: newMessage,
       replyTo,
-      fileUrl,
+      fileUrl,   // ✅ correct place for chat attachments
+      fileType,
       timestamp: serverTimestamp(),
     });
   }
@@ -3191,6 +3285,15 @@ const sendMessage = async () => {
   setFile(null);
   setReplyTo(null);
 };
+const detectFileType = (filename) => {
+  const ext = filename.split(".").pop().toLowerCase();
+  if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext)) return "image";
+  if (["mp3", "wav", "ogg", "webm"].includes(ext)) return "audio";
+  if (["mp4", "mov", "avi", "mkv"].includes(ext)) return "video";
+  if (["pdf", "doc", "docx", "txt", "ppt", "pptx"].includes(ext)) return "doc";
+  return "raw";
+};
+
 
   /* ---- add reaction to message (emoji) ---- */
   const addReaction = async (messageId, emoji) => {
@@ -3299,6 +3402,19 @@ const changeTheme = (selectedTheme) => {
   setShowThemeMenu(false);
 };
 
+// helpers to check file type safely
+const isImage = (url) =>
+  typeof url === "string" && url.match(/\.(jpeg|jpg|png|gif)$/i);
+
+const isAudio = (url) =>
+  typeof url === "string" && url.match(/\.(webm|wav|mp3|ogg)$/i);
+
+const isVideo = (url) =>
+  typeof url === "string" && url.match(/\.(mp4|mov|avi|mkv|webm)$/i);
+
+const isDoc = (url) =>
+  typeof url === "string" && url.match(/\.(pdf|docx?|txt|pptx?)$/i);
+
 
   return (
     <div className="chat-board">
@@ -3344,16 +3460,26 @@ const changeTheme = (selectedTheme) => {
 
 
                     {/* file: image or audio */}
-                    {msg.fileUrl && (msg.fileType === "audio" || msg.fileUrl.match(/audio|webm|wav|mp3/)) ? (
-                      <audio controls src={msg.fileUrl} className="chat-audio" />
-                    ) : msg.fileUrl ? (
-                      // image or other file
-                      msg.fileUrl.match(/\.(jpeg|jpg|png|gif)$/) ? (
-                        <img src={msg.fileUrl} alt="uploaded" className="chat-image" />
-                      ) : (
-                        <a href={msg.fileUrl} target="_blank" rel="noreferrer" className="file-link">📎 Open file</a>
-                      )
-                    ) : null}
+{/* file: image, audio, or doc */}
+{/* file: image, audio, video, or doc */}
+{isAudio(msg.fileUrl) ? (
+  <audio controls src={msg.fileUrl} className="chat-audio" />
+) : isVideo(msg.fileUrl) ? (
+  <video controls src={msg.fileUrl} className="chat-video" />
+) : isImage(msg.fileUrl) ? (
+  <img src={msg.fileUrl} alt="uploaded" className="chat-image" />
+) : isDoc(msg.fileUrl) ? (
+  <a
+    href={msg.fileUrl}
+    target="_blank"
+    rel="noreferrer"
+    className="file-link"
+  >
+    📎 Open document
+  </a>
+) : null}
+
+
                   </div>
 
                   {/* reactions display */}
