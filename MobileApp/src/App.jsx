@@ -605,10 +605,12 @@ const customStyles = `
   color: rgb(49, 49, 49);
  }
 
-.question {
+.questionChallenge {
   color: rgb(221, 216, 216);
   margin-top: 30px;
-  line-height: 1.5;
+  font-size: 35px;
+  line-height: 1.3;
+  font-weight: 400;
 }
   
 .options {
@@ -919,8 +921,9 @@ const customStyles = `
   .quiz-title {
     font-size: 14px;
     font-weight: 500;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: white;
+
   }
 
   .quiz-question-number {
@@ -944,8 +947,9 @@ const customStyles = `
 
   .quiz-question {
     margin-top: 8px;
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 26px;
+      font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
     line-height: 1.4;
     color: white;
   }
@@ -971,6 +975,7 @@ const customStyles = `
   }
 
   .answer-text {
+     font-family: 'Inter', sans-serif;
     flex-grow: 1;
   }
 
@@ -1687,7 +1692,7 @@ const Home3 = ({ setPage }) => {
   return (
     <div className="mobile-frame-pink">
       <div className="header-3">
-        <span style={{ color: "black" }}>9:41</span>
+        <span style={{ color: "black" }}> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
         <StatusIcons />
       </div>
 
@@ -1754,7 +1759,7 @@ const Home2 = ({ setPage }) => {
   return (
     <div className="mobile-frame-pink">
       <div className="headerr" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ color: "black" }}>9:41</span>
+        <span style={{ color: "black" }}> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
         <StatusIcons />
       </div>
          <span className="back-arrow"  style={{ marginTop: '3.5rem' , color: "black" , fontSize: "30px" }} onClick={() => setPage('Home3')}>&#8592;</span>
@@ -2045,7 +2050,7 @@ return(
       {/* Header */}
       <div className="header">
         <div className="status-bar">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <div className="status-icons">
           <svg width="20" height="12" viewBox="0 0 20 12">
         <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
@@ -2134,10 +2139,10 @@ const QuizPage2 = ({ setPage }) => {
   const { t } = useLanguage();
   const [selected, setSelected] = useState("B");
 const answers = [
-  { id: "A", text: t("answerA") },
-  { id: "B", text: t("answerB") },
-  { id: "C", text: t("answerC") },
-  { id: "D", text: t("answerD") },
+  { id: "A", text: t("answer2A") },
+  { id: "B", text: t("answer2B") },
+  { id: "C", text: t("answer2C") },
+  { id: "D", text: t("answer2D") },
 ];
 
 
@@ -2162,7 +2167,7 @@ const answers = [
     <div className="quiz-wrapper">
       <div className="header-section">
         <div className="status-bar">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
@@ -2220,12 +2225,12 @@ const answers = [
 
 const QuizPage3 = ({ setPage }) => {
   const { t } = useLanguage();
-  const [selected, setSelected] = useState("B");
+  const [selected, setSelected] = useState("C");
 const answers = [
-  { id: "A", text: t("answerA") },
-  { id: "B", text: t("answerB") },
-  { id: "C", text: t("answerC") },
-  { id: "D", text: t("answerD") },
+  { id: "A", text: t("answer4A") },
+  { id: "B", text: t("answer4B") },
+  { id: "C", text: t("answer4C") },
+  { id: "D", text: t("answer4D") },
 ];
 
 
@@ -2250,7 +2255,7 @@ const answers = [
     <div className="quiz-wrapper">
       <div className="header-section">
         <div className="status-bar">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
@@ -2272,7 +2277,7 @@ const answers = [
   <span className="total-black">/05</span>
 </p>
 
-       <p className="quiz-question">{t("quizQuestion2")}</p>
+       <p className="quiz-question">{t("quizQuestion4")}</p>
         {answers.map((ans) => (
           <button
             key={ans.id}
@@ -2294,8 +2299,8 @@ const answers = [
         <div className="pagination">
           <span className="dot blue"></span>
           <span className="dot blue"></span>
-          <span className="dot white"></span>
-          <span className="dot white"></span>
+          <span className="dot blue"></span>
+          <span className="dot blue"></span>
           <span className="dot white"></span>
         </div>
            <div className="btns">
@@ -2305,7 +2310,6 @@ const answers = [
     </div>
   );
 };
-
 
 const ChallengesScreen = ({ setPage }) => {
   const { t } = useLanguage();
@@ -2339,7 +2343,7 @@ const ChallengesScreen = ({ setPage }) => {
     <div className="screen">
       <div className="header-challenges">
         <div className="status-bar">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
@@ -2353,14 +2357,14 @@ const ChallengesScreen = ({ setPage }) => {
       <div className="content-challenges">
         <h2 className="title">
           <span className="white-text">{t("challengesTitle")}</span>{" "}
-          <span className="black-text"><span className="white-text">1</span>/3</span>
+          <span className="black-text"><span className="white-text">1</span>/4</span>
         </h2>
-        <p className="question">
+        <p className="questionChallenge">
           {t("challengeQuestion1")}
         </p>
         <div className="options">
           <label className="option">
-             {t("yesOption")}
+             {t("yesOption1")}
               <input
               type="radio"
               name="answer"
@@ -2369,7 +2373,7 @@ const ChallengesScreen = ({ setPage }) => {
             />
           </label>
           <label className="option">
-              {t("noOption")}
+              {t("noOption1")}
             <input
               type="radio"
               name="answer"
@@ -2387,12 +2391,276 @@ const ChallengesScreen = ({ setPage }) => {
         <div className="btns">
           
         <button className="next-button-back" onClick={() => setPage('QuizPage2')}>  {t("back")}</button>
+        <button className="next-button-next" onClick={() => setPage('Challenges2')}> {t("next")}</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ChallengesScreen2 = ({ setPage }) => {
+  const { t } = useLanguage();
+  const [selected, setSelected] = useState(null);
+
+  const StatusIcons = () => (
+    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
+             <svg width="20" height="12" viewBox="0 0 20 12">
+        <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
+        <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
+        <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
+        <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
+      </svg>
+      {/* wifi */}
+      <svg width="20" height="12" viewBox="0 0 24 24">
+        <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="12.5" cy="19" r="1.2" fill="#000"/>
+      </svg>
+      {/* battery */}
+      <svg width="28" height="12" viewBox="0 0 28 12">
+        <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/>
+        <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/>
+        <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/>
+      </svg>
+    </div>
+  );
+  
+  return (
+    <div className="screen">
+      <div className="header-challenges">
+        <div className="status-bar">
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <StatusIcons />
+        </div>
+        <div className="nav-icons">
+          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage('QuizPage2')} />
+          <div className="bell-container">
+            <Bell size={24} className="nav-icon" onClick={() => setPage('Notifications')} />
+            <User size={24} className="nav-icon" onClick={() => setPage('Profile')} />
+          </div>
+        </div>
+      </div>
+      <div className="content-challenges">
+        <h2 className="title">
+          <span className="white-text">{t("challengesTitle")}</span>{" "}
+          <span className="black-text"><span className="white-text">2</span>/4</span>
+        </h2>
+        <p className="questionChallenge">
+          {t("challengeQuestion2")}
+        </p>
+        <div className="options">
+          <label className="option">
+             {t("yesOption2")}
+              <input
+              type="radio"
+              name="answer"
+              checked={selected === "Yego"}
+              onChange={() => setSelected("Yego")}
+            />
+          </label>
+          <label className="option">
+              {t("noOption2")}
+            <input
+              type="radio"
+              name="answer"
+              checked={selected === "Oya"}
+              onChange={() => setSelected("Oya")}
+            />
+          </label>
+        </div>
+        <div className="dots">
+          <span className="dot active"></span>
+          <span className="dot active"></span>
+          <span className="dot"></span>
+           <span className="dot"></span>
+        </div>
+        <div className="btns">
+          
+        <button className="next-button-back" onClick={() => setPage('Challenges')}>  {t("back")}</button>
+        <button className="next-button-next" onClick={() => setPage('Challenges3')}> {t("next")}</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ChallengesScreen3 = ({ setPage }) => {
+  const { t } = useLanguage();
+  const [selected, setSelected] = useState(null);
+
+  const StatusIcons = () => (
+    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
+             <svg width="20" height="12" viewBox="0 0 20 12">
+        <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
+        <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
+        <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
+        <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
+      </svg>
+      {/* wifi */}
+      <svg width="20" height="12" viewBox="0 0 24 24">
+        <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="12.5" cy="19" r="1.2" fill="#000"/>
+      </svg>
+      {/* battery */}
+      <svg width="28" height="12" viewBox="0 0 28 12">
+        <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/>
+        <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/>
+        <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/>
+      </svg>
+    </div>
+  );
+  
+  return (
+    <div className="screen">
+      <div className="header-challenges">
+        <div className="status-bar">
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <StatusIcons />
+        </div>
+        <div className="nav-icons">
+          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage('QuizPage2')} />
+          <div className="bell-container">
+            <Bell size={24} className="nav-icon" onClick={() => setPage('Notifications')} />
+            <User size={24} className="nav-icon" onClick={() => setPage('Profile')} />
+          </div>
+        </div>
+      </div>
+      <div className="content-challenges">
+        <h2 className="title">
+          <span className="white-text">{t("challengesTitle")}</span>{" "}
+          <span className="black-text"><span className="white-text">3</span>/4</span>
+        </h2>
+        <p className="questionChallenge">
+          {t("challengeQuestion3")}
+        </p>
+        <div className="options">
+          <label className="option">
+             {t("yesOption3")}
+              <input
+              type="radio"
+              name="answer"
+              checked={selected === "Yego"}
+              onChange={() => setSelected("Yego")}
+            />
+          </label>
+          <label className="option">
+              {t("noOption3")}
+            <input
+              type="radio"
+              name="answer"
+              checked={selected === "Oya"}
+              onChange={() => setSelected("Oya")}
+            />
+          </label>
+        </div>
+        <div className="dots">
+          <span className="dot active"></span>
+          <span className="dot active"></span>
+          <span className="dot active"></span>
+           <span className="dot"></span>
+        </div>
+        <div className="btns">
+          
+        <button className="next-button-back" onClick={() => setPage('Challenges2')}>  {t("back")}</button>
+        <button className="next-button-next" onClick={() => setPage('Challenges4')}> {t("next")}</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ChallengesScreen4 = ({ setPage }) => {
+  const { t } = useLanguage();
+  const [selected, setSelected] = useState(null);
+
+  const StatusIcons = () => (
+    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
+             <svg width="20" height="12" viewBox="0 0 20 12">
+        <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
+        <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
+        <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
+        <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
+      </svg>
+      {/* wifi */}
+      <svg width="20" height="12" viewBox="0 0 24 24">
+        <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="12.5" cy="19" r="1.2" fill="#000"/>
+      </svg>
+      {/* battery */}
+      <svg width="28" height="12" viewBox="0 0 28 12">
+        <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/>
+        <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/>
+        <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/>
+      </svg>
+    </div>
+  );
+  
+  return (
+    <div className="screen">
+      <div className="header-challenges">
+        <div className="status-bar">
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <StatusIcons />
+        </div>
+        <div className="nav-icons">
+          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage('QuizPage2')} />
+          <div className="bell-container">
+            <Bell size={24} className="nav-icon" onClick={() => setPage('Notifications')} />
+            <User size={24} className="nav-icon" onClick={() => setPage('Profile')} />
+          </div>
+        </div>
+      </div>
+      <div className="content-challenges">
+        <h2 className="title">
+          <span className="white-text">{t("challengesTitle")}</span>{" "}
+          <span className="black-text"><span className="white-text">4</span>/4</span>
+        </h2>
+        <p className="questionChallenge">
+          {t("challengeQuestion4")}
+        </p>
+        <div className="options">
+          <label className="option">
+             {t("yesOption4")}
+              <input
+              type="radio"
+              name="answer"
+              checked={selected === "Yego"}
+              onChange={() => setSelected("Yego")}
+            />
+          </label>
+          <label className="option">
+              {t("noOption4")}
+            <input
+              type="radio"
+              name="answer"
+              checked={selected === "Oya"}
+              onChange={() => setSelected("Oya")}
+            />
+          </label>
+        </div>
+        <div className="dots">
+          <span className="dot active"></span>
+          <span className="dot active"></span>
+          <span className="dot active"></span>
+           <span className="dot active"></span>
+        </div>
+        <div className="btns">
+          
+        <button className="next-button-back" onClick={() => setPage('Challenges3')}>  {t("back")}</button>
         <button className="next-button-next" onClick={() => setPage('Activities')}> {t("next")}</button>
         </div>
       </div>
     </div>
   );
 };
+
+
+
 
 
 const ActivitiesScreen = ({ setPage }) => {
@@ -2454,7 +2722,7 @@ const ActivitiesScreen = ({ setPage }) => {
     <div className="phone">
        <div className="header-activities">
         <div className="status-row">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <StatusIcons />
         </div>
         <div className="nav-row">
@@ -2495,8 +2763,15 @@ const ActivitiesScreen = ({ setPage }) => {
   );
 };
 
+import './AddMember.css';
+import { initializeApp, deleteApp } from "firebase/app";
+import { firebaseConfig } from "../../BackEnd/firebase.js"; 
+import {   getFirestore } from "firebase/firestore";
+import {  getAuth } from "firebase/auth";
 
-const AddMember = ({setPage}) => {
+const AddMember = ({ setPage }) => {
+  const { t } = useLanguage();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [fullName, setFullName] = useState("");
@@ -2504,188 +2779,216 @@ const AddMember = ({setPage}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { t } = useLanguage();
-   
+
+  const [popup, setPopup] = useState({ show: false, message: "", type: "" });
+
+  const db = getFirestore();
+
   const handleSignup = async () => {
     if (password !== confirmPassword) {
-      alert("Passwords do not match.");
+      setPopup({ show: true, message: "Passwords do not match.", type: "error" });
       return;
     }
+
     if (!email) {
-      alert("Please enter a valid email address.");
+      setPopup({ show: true, message: "Please enter a valid email address.", type: "error" });
       return;
     }
 
     try {
+      // ✅ Create a temporary secondary Firebase app to add a new member
+      const secondaryApp = initializeApp(firebaseConfig, "Secondary");
+      const secondaryAuth = getAuth(secondaryApp);
+
       const userCredential = await createUserWithEmailAndPassword(
-        auth,
+        secondaryAuth,
         email,
         password
       );
+
       const user = userCredential.user;
 
- await setDoc(doc(db, "users", user.uid), {
-  fullName,
-  phoneNumber,
-  email,
-  createdAt: serverTimestamp(),
-});
+      // ✅ Save new member in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        fullName,
+        phoneNumber,
+        email,
+        createdAt: serverTimestamp(),
+      });
 
+      // ✅ Clean up secondary app safely
+      await deleteApp(secondaryApp);
 
-      alert(`Member ${fullName} Added successful!`);
-      setPage("Activities");
+      setPopup({
+        show: true,
+        message: `Member ${fullName} added successfully!`,
+        type: "success",
+      });
+
+      setTimeout(() => {
+        setPage("Activities");
+      }, 2000);
     } catch (error) {
       console.error("Error during sign-up:", error);
-      alert(`Sign up failed: ${error.message}`);
+      setPopup({
+        show: true,
+        message: `Sign up failed: ${error.message}`,
+        type: "error",
+      });
     }
   };
- 
-return(
 
-<>
+  const Popup = ({ message, type, onClose }) => {
+    if (!message) return null;
+    return (
+      <div className="popup-overlay">
+        <div className={`popup-box ${type}`}>
+          <p>{message}</p>
+          <button className="popup-btn" onClick={onClose}>
+            OK
+          </button>
+        </div>
+      </div>
+    );
+  };
 
- <div className="screen-add">
-      {/* Header */}
-      <div className="header-add">
-        <div className="status-bar-add">
-          <span className="time">9:41</span>
-          <div className="status-icons-add">
-          <svg width="20" height="12" viewBox="0 0 20 12">
+  return (
+    <>
+      <div className="screen-add">
+        {/* HEADER */}
+<div className="header-add"> 
+  <div className="status-bar-add">
+     <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span> 
+     <div className="status-icons-add"> 
+      <svg width="20" height="12" viewBox="0 0 20 12"> 
         <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
-        <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
-        <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
-        <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
-      </svg>
-      {/* wifi */}
-      <svg width="20" height="12" viewBox="0 0 24 24">
-        <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <circle cx="12.5" cy="19" r="1.2" fill="#000"/>
-      </svg>
-      {/* battery */}
-      <svg width="28" height="12" viewBox="0 0 28 12">
-        <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/>
-        <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/>
-        <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/>
-      </svg>
-          </div>
-        </div>
-        <div className="nav-icons-add">
-          {/* home */}
-<svg width="29" height="30" viewBox="0 0 24 24" fill="none" onClick={ ()=> setPage('Home3')} >
-  <path d="M3 9.5L12 3L21 9.5V20C21 20.55 20.55 21 20 21H15C14.45 21 14 20.55 14 20V15C14 14.45 13.55 14 13 14H11C10.45 14 10 14.45 10 15V20C10 20.55 9.55 21 9 21H4C3.45 21 3 20.55 3 20V9.5Z" 
-        stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-</svg>
+         <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" /> 
+         <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
+          <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
+           </svg> {/* wifi */} <svg width="20" height="12" viewBox="0 0 24 24">
+             <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+               <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+                <circle cx="12.5" cy="19" r="1.2" fill="#000"/> </svg> {/* battery */} <svg width="28" height="12" viewBox="0 0 28 12">
+                   <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/> 
+                   <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/> 
+                   <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/> 
+                   </svg> </div> </div> <div className="nav-icons-add"> {/* home */} 
+                    <svg width="29" height="30" viewBox="0 0 24 24" fill="none" onClick={ ()=> setPage('Home3')} >
+                       <path d="M3 9.5L12 3L21 9.5V20C21 20.55 20.55 21 
+                       20 21H15C14.45 21 14 20.55 14 20V15C14 14.45 13.55 
+                       14 13 14H11C10.45 14 10 14.45 10 15V20C10 20.55 9.55
+                        21 9 21H4C3.45 21 3 20.55 3 20V9.5Z" stroke="#000"
+                         strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/> 
+                         </svg> <div className="bell-container-add"> 
+                          <svg width="29" height="30" viewBox="0 0 24 24" fill="none" 
+                          stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
+                          onClick={ ()=>setPage('Notifications')}> <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 
+                          7h18s-3 0-3-7"/> <path d="M13.73 21a2 2 0 01-3.46 0"/>
+                           </svg> <span className="green-dot-add"></span>
+                            <div className="profile-add"> <svg width="29" height="30"
+                             viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2"
+                              strokeLinecap="round" strokeLinejoin="round" className="profile-icon-add"onClick={ ()=>setPage('Profile')} > 
+                              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                               <circle cx="12" cy="7" r="4"/>
+                                </svg> 
+                                </div> 
+                                </div> 
+                                </div> 
+                                </div>
 
-          <div className="bell-container-add">
-             <svg width="29" height="30" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" onClick={ ()=>setPage('Notifications')}>
-        <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/>
-        <path d="M13.73 21a2 2 0 01-3.46 0"/>
-      </svg>
-            <span className="green-dot-add"></span>
-            <div className="profile-add">
-                          <svg width="29" height="30" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="profile-icon-add"onClick={ ()=>setPage('Profile')} >
-      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-      <circle cx="12" cy="7" r="4"/>
-    </svg>
-            </div>
+        {/* CONTENT */}
+        <div className="content-add">
+          <button className="signup-button-add2" onClick={() => setPage("ViewMembers")}>
+            {t("viewMembers")}
+          </button>
 
-          </div>
-          
-        </div>
-      </div>
+          <div className="header-add2">
+            <div className="signup-area-add">
+              <div className="signup-title-add">{t('addMembers')}!</div>
 
-      {/* Pink Content */}
-      <div className="content-add">
-  
-
-      
-            <button className="signup-button-add2" onClick={() => setPage("ViewMembers")}>
-      {t('viewMembers')}
-        </button>
-
-        
-           <div className="header-add2">
-                  <div className="signup-area-add">
-                    <div className="signup-title-add">{t('addMembers')} !</div>
-                    {/* 
-                    
-                                    <div className="input-group">
-                  <User size={20} className="icon" />
-                  <input type="text" placeholder="Full Name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <Phone size={20} className="icon" />
-                  <input type="tel" placeholder="Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <Home size={20} className="icon" />
-                  <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="input-group">
-                  <Lock size={20} className="icon" />
-                  <input type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                  <span className="password-toggle" onClick={setShowPassword}>
-                    {showPassword ? <EyeOff size={20} className="icon" /> : <Eye size={20} className="icon" />}
-                  </span>
-                </div>
-                <div className="input-group">
-                  <Lock size={20} className="icon" />
-                  <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                  <span className="password-toggle" onClick={setShowConfirmPassword}>
-                    {showConfirmPassword ? <EyeOff size={20} className="icon" /> : <Eye size={20} className="icon" />}
-                  </span>
+              <div className="main-content-add">
+                <div className="input-group-add">
+                  <User size={20} className="icon-add" />
+                  <input
+                    type="text"
+                    placeholder={t("fullName")}
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                  />
                 </div>
 
-                    */}
-                    <div className="main-content-add">
-                      <div className="input-group-add">
-                        <User size={20} className="icon-add" />
-                          <input type="text" placeholder={t('fullName')}  value={fullName} onChange={(e) => setFullName(e.target.value)} />
-                      </div>
-        
-                      <div className="input-group-add">
-                        <Phone size={20} className="icon-add" />
-                       <input type="tel" placeholder={t('phone')}  value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-                      </div>
+                <div className="input-group-add">
+                  <Phone size={20} className="icon-add" />
+                  <input
+                    type="tel"
+                    placeholder={t("phone")}
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                  />
+                </div>
 
-                      <div className="input-group-add">
+                <div className="input-group-add">
                   <Home size={20} className="icon-add" />
-                  <input type="email" placeholder={t('email')}  value={email} onChange={(e) => setEmail(e.target.value)} />
+                  <input
+                    type="email"
+                    placeholder={t("email")}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
-        
-                      <div className="input-group-add">
-                        <Lock size={20} className="icon-add" />
-                          <input type={showPassword ? "text" : "password"} placeholder={t('password')}  value={password} onChange={(e) => setPassword(e.target.value)} />
-                  <span className="password-toggle" onClick={setShowPassword}>
-                    {showPassword ? <EyeOff size={20} className="icon-add" /> : <Eye size={20} className="icon-add" />}
+
+                <div className="input-group-add">
+                  <Lock size={20} className="icon-add" />
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder={t("password")}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </span>
-                      </div>
-        
-                      <div className="input-group-add">
-                        <Lock size={20} className="icon-add" />
-                         <input type={showConfirmPassword ? "text" : "password"} placeholder={t('confirmPassword')}  value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                  <span className="password-toggle" onClick={setShowConfirmPassword}>
-                    {showConfirmPassword ? <EyeOff size={20} className="icon-add" /> : <Eye size={20} className="icon-add" />}
+                </div>
+
+                <div className="input-group-add">
+                  <Lock size={20} className="icon-add" />
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder={t("confirmPassword")}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                  <span
+                    className="password-toggle"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </span>
-                      </div>
-        
-                      <button className="signup-button-add" onClick={handleSignup}>{t('addMemberButton')}</button>
-                    </div>
-                  </div>
-            
+                </div>
+
+                <button className="signup-button-add" onClick={handleSignup}>
+                  {t("addMemberButton")}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {popup.show && (
+          <Popup
+            message={popup.message}
+            type={popup.type}
+            onClose={() => setPopup({ show: false, message: "", type: "" })}
+          />
+        )}
       </div>
+    </>
+  );
+};
 
 
-      </div>
-    </div>
 
-
-</>
-  
-);
-}
 
 import { collection, getDocs } from "firebase/firestore";
 import {  Mail } from "lucide-react";
@@ -2790,20 +3093,68 @@ const ViewMembers = ({ setPage }) => {
   );
 };
 
+
+
+
+
+
+
+
+import { limit } from "firebase/firestore";
+
+
+
+// Helper for relative time
+const formatTimeAgo = (date) => {
+  if (!date) return "Just now";
+  const now = new Date();
+  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  if (seconds < 60) return "Just now";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} min ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hr${hours > 1 ? "s" : ""} ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days} day${days > 1 ? "s" : ""} ago`;
+  return `${days} day${days > 1 ? "s" : ""} ago`; // fallback for older messages
+};
+
 const NotificationsScreen = ({ setPage }) => {
   const { t } = useLanguage();
+  const [notifications, setNotifications] = useState([]);
 
-  // Store keys in the array instead of raw text
-const notifications = [
-  { id: 1, name: "Mutesi", messageKey: "notifSuccessTo", points: "300PTS", extraKey: "notifAboutQuiz", avatar: "👧🏼" },
-  { id: 2, name: "Mama", messageKey: "notifYouHave", points: "00PTS", extraKey: "notifFailedTryAgain", avatar: "🙍🏽‍♀️" },
-  { id: 3, name: "Dady", messageKey: "notifFinishAllQuestions", points: "", extraKey: "", avatar: "👱🏽‍♂️" },
-  { id: 4, name: "Karim", messageKey: "notifUpdateChallenges", points: "", extraKey: "", avatar: "👨🏽‍🦱" },
-];
+  useEffect(() => {
+    const messagesRef = collection(db, "chats", "familyBoard", "messages");
+    const q = query(messagesRef, orderBy("timestamp", "desc"), limit(4));
 
+    const unsub = onSnapshot(q, (snapshot) => {
+      const notifs = snapshot.docs.map((doc) => {
+        const data = doc.data();
+
+        // Convert Firestore timestamp to JS Date
+        let timestamp = new Date();
+        if (data.timestamp && typeof data.timestamp.toDate === "function") {
+          timestamp = data.timestamp.toDate();
+        }
+
+        return {
+          id: doc.id,
+          name: data.senderName || "Unknown",
+          text: data.text || (data.fileType ? `Sent a ${data.fileType}` : ""),
+          avatar: data.senderPic || data.senderName?.charAt(0).toUpperCase() || "👤",
+          timestamp,
+        };
+      });
+
+      setNotifications(notifs.reverse()); // oldest first
+    });
+
+    return () => unsub();
+  }, []);
 
   const StatusIcons = () => (
-    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
+    <div className="status-icons" style={{ display: "flex", gap: "5px" }}>
       <span>📶</span>
       <span>📡</span>
       <span>🔋</span>
@@ -2814,15 +3165,15 @@ const notifications = [
     <div className="screen">
       <div className="headernoti">
         <div className="status-bar">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <StatusIcons />
         </div>
-        <ChevronLeft size={24} className="nav-icon" onClick={() => setPage('Challenges')} />
+        <ChevronLeft size={24} className="nav-icon" onClick={() => setPage("Challenges")} />
         <div className="nav-icons">
-          <span className="nav-icon-home" onClick={() => setPage('Home3')}>🏠</span>
+          <span className="nav-icon-home" onClick={() => setPage("Home3")}>🏠</span>
           <div className="bell-container">
-            <span className="nav-icon" onClick={() => setPage('Notifications')}>🔔</span>
-            <span className="nav-icon" onClick={() => setPage('Profile')}>👤</span>
+            <span className="nav-icon" onClick={() => setPage("Notifications")}>🔔</span>
+            <span className="nav-icon" onClick={() => setPage("Profile")}>👤</span>
           </div>
         </div>
       </div>
@@ -2830,40 +3181,83 @@ const notifications = [
       <div className="contentnoti">
         <h2 className="notif-title">{t("notificationsTitle")}</h2>
 
+        {notifications.length === 0 && <p>{t("noNotifications")}</p>}
+
         {notifications.map((n) => (
-          <div className="notif-card" key={n.id}>
-            <div className="avatar">{n.avatar}</div>
-            <div className="notif-text">
-              <span className="dim">{t(n.messageKey)} </span>
-              <strong className="black">{n.name}</strong>{" "}
-              {n.points && (
-                <>
-                  <span className="dim">{t("notifYouHave")} </span>
-                  <strong className="black">{n.points}</strong>{" "}
-                </>
+          <div
+            key={n.id}
+            className="notif-card"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "12px",
+              padding: "8px",
+              background: "#f9f9f9",
+              borderRadius: "20px",
+            }}
+          >
+            <div className="avatar" style={{ marginRight: "10px" }}>
+              {n.avatar.startsWith("http") ? (
+                <img
+                  src={n.avatar}
+                  alt={n.name}
+                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                />
+              ) : (
+                <span style={{ fontSize: "24px" }}>{n.avatar}</span>
               )}
-              {n.extra && <span className="dim">{t(n.extraKey)}</span>}
+            </div>
+
+            <div className="notif-text" style={{ flex: 1 }}>
+              <div style={{ fontSize: "14px", marginBottom: "4px" }}>
+                {n.text && <span>{n.text} </span>}
+                <strong>{n.name}</strong>
+              </div>
+
+              {/* Relative timestamp only */}
+              <div
+                style={{
+                  fontSize: "12px",
+                  color: "gray",
+                  textAlign: "right",
+                  marginTop: "2px",
+                }}
+              >
+                {formatTimeAgo(n.timestamp)}
+              </div>
             </div>
           </div>
         ))}
 
-        <div className="arrow-down">
-          <ChevronsDown className="ChevronsDown" style={{color:"#fff"}} size={41} onClick={()=>setPage('ChartBoard')}></ChevronsDown>
+        <div className="arrow-down" style={{ textAlign: "center", marginTop: "10px" }}>
+          <ChevronsDown
+            className="ChevronsDown"
+            style={{ color: "#fff" }}
+            size={41}
+            onClick={() => setPage("ChartBoard")}
+          />
         </div>
       </div>
     </div>
   );
 };
 
+
+
+
+
+
+
+
 const Home6 = ({ setPage }) => {
   const { t } = useLanguage();
   const [selected, setSelected] = useState("B");
-  const answers = [
-    { id: "A", text: "Gufasha abandi mu byo bakeneye" },
-    { id: "B", text: "Kuganira kenshi tugahana amakuru" },
-    { id: "C", text: "Gutanga ibyishimo n'umutuzo" },
-    { id: "D", text: "Kwihanganirana mu makosa" },
-  ];
+const answers = [
+  { id: "A", text: t("answer1A") },
+  { id: "B", text: t("answer1B") },
+  { id: "C", text: t("answer1C") },
+  { id: "D", text: t("answer1D") },
+];
 
   const StatusIcons = () => (
     <div className="status-icons" style={{ display: 'flex', gap: '6px' }}>
@@ -2886,7 +3280,7 @@ const Home6 = ({ setPage }) => {
     <div className="quiz-wrapper">
       <div className="header-section">
         <div className="status-bar">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
@@ -2918,7 +3312,7 @@ const Home6 = ({ setPage }) => {
             className="answer-btn"
           >
             <span className="answer-text">
-              {ans.id}. {t(`answer${ans.id}`)}
+              {ans.id}. {ans.text}
             </span>
             <span
               className={`radio-circle ${
@@ -2948,12 +3342,12 @@ const Home6 = ({ setPage }) => {
 
 const Home7 = ({ setPage }) => {
   const { t } = useLanguage();
-  const [selected, setSelected] = useState("B");
+  const [selected, setSelected] = useState("C");
   const answers = [
-    { id: "A", text: "Gufasha abandi mu byo bakeneye" },
-    { id: "B", text: "Kuganira kenshi tugahana amakuru" },
-    { id: "C", text: "Gutanga ibyishimo n'umutuzo" },
-    { id: "D", text: "Kwihanganirana mu makosa" },
+    { id: "A", text: t("answer3A")  },
+    { id: "B", text: t("answer3B")  },
+    { id: "C", text: t("answer3C") },
+    { id: "D", text:t("answer3D") },
   ];
 
   const StatusIcons = () => (
@@ -2977,7 +3371,7 @@ const Home7 = ({ setPage }) => {
     <div className="quiz-wrapper">
       <div className="header-section">
         <div className="status-bar">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
@@ -3000,7 +3394,7 @@ const Home7 = ({ setPage }) => {
           <span className="total-black">/05</span>
         </p>
         <p className="quiz-question">
-          {t("quizQuestion1")}
+          {t("quizQuestion3")}
         </p>
         {answers.map((ans) => (
           <button
@@ -3009,7 +3403,7 @@ const Home7 = ({ setPage }) => {
             className="answer-btn"
           >
             <span className="answer-text">
-              {ans.id}. {t(`answer${ans.id}`)}
+              {ans.id}. {ans.text}
             </span>
             <span
               className={`radio-circle ${
@@ -3022,8 +3416,8 @@ const Home7 = ({ setPage }) => {
         ))}
         <div className="pagination">
           <span className="dot blue"></span>
-          <span className="dot white"></span>
-          <span className="dot white"></span>
+          <span className="dot blue"></span>
+          <span className="dot blue"></span>
           <span className="dot white"></span>
           <span className="dot white"></span>
         </div>
@@ -3041,10 +3435,10 @@ const Home8 = ({ setPage }) => {
   const { t } = useLanguage();
   const [selected, setSelected] = useState("B");
   const answers = [
-    { id: "A", text: "Gufasha abandi mu byo bakeneye" },
-    { id: "B", text: "Kuganira kenshi tugahana amakuru" },
-    { id: "C", text: "Gutanga ibyishimo n'umutuzo" },
-    { id: "D", text: "Kwihanganirana mu makosa" },
+    { id: "A", text: t("answer5A")  },
+    { id: "B", text: t("answer5B")  },
+    { id: "C", text: t("answer5C") },
+    { id: "D", text:t("answer5D") },
   ];
 
   const StatusIcons = () => (
@@ -3068,7 +3462,7 @@ const Home8 = ({ setPage }) => {
     <div className="quiz-wrapper">
       <div className="header-section">
         <div className="status-bar">
-          <span className="time">9:41</span>
+          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
@@ -3091,7 +3485,7 @@ const Home8 = ({ setPage }) => {
           <span className="total-black">/05</span>
         </p>
         <p className="quiz-question">
-          {t("quizQuestion1")}
+          {t("quizQuestion5")}
         </p>
         {answers.map((ans) => (
           <button
@@ -3100,7 +3494,7 @@ const Home8 = ({ setPage }) => {
             className="answer-btn"
           >
             <span className="answer-text">
-              {ans.id}. {t(`answer${ans.id}`)}
+              {ans.id}. {ans.text}
             </span>
             <span
               className={`radio-circle ${
@@ -3113,10 +3507,10 @@ const Home8 = ({ setPage }) => {
         ))}
         <div className="pagination">
           <span className="dot blue"></span>
-          <span className="dot white"></span>
-          <span className="dot white"></span>
-          <span className="dot white"></span>
-          <span className="dot white"></span>
+          <span className="dot blue"></span>
+          <span className="dot blue"></span>
+          <span className="dot blue"></span>
+          <span className="dot blue"></span>
         </div>
         <div className="btns">
             <ChevronLeft size={33} style={{color:'#fff'}} onClick={()=> setPage('QuizPage3')}></ChevronLeft> <span style={{color:'#fff'}}>............  5 / 5  ............</span>
@@ -3644,6 +4038,8 @@ const ProfileScreen = ({ setPage }) => {
 const [newPassword, setNewPassword] = useState("");
 const [showNewPassword, setShowNewPassword] = useState(false);
 const [currentPassword, setCurrentPassword] = useState("");
+const [saving, setSaving] = useState(false);
+
 
 
 
@@ -3693,8 +4089,10 @@ const handleEditSubmit = async (e) => {
   e.preventDefault();
   if (!user) return;
 
+  setSaving(true); // show loading
+
   try {
-    // reauthenticate with current password
+    // reauthenticate if needed
     if (currentPassword) {
       const credential = EmailAuthProvider.credential(user.email, currentPassword);
       await reauthenticateWithCredential(user, credential);
@@ -3702,7 +4100,7 @@ const handleEditSubmit = async (e) => {
 
     const userRef = doc(db, "users", user.uid);
 
-    // update Firestore profile data
+    // update Firestore
     await setDoc(
       userRef,
       {
@@ -3713,33 +4111,41 @@ const handleEditSubmit = async (e) => {
       { merge: true }
     );
 
-    // update Firebase Auth email (if changed)
+    // update Firebase email if changed
     if (editEmail && editEmail !== user.email) {
       await updateEmail(user, editEmail);
     }
 
-    // update Firebase Auth password (if provided)
+    // update password if provided
     if (newPassword) {
-      if (newPassword.length < 6) {
-        throw new Error("Password must be at least 6 characters.");
-      }
+      if (newPassword.length < 6) throw new Error("Password must be at least 6 characters.");
       await updatePassword(user, newPassword);
     }
 
-    // reset states
+    // update UI data
     setDisplayName(editName);
     setPhoneNumber(editPhone);
     setNewPassword("");
     setCurrentPassword("");
     setShowNewPassword(false);
 
-    setShowEditPopup(false);
-    alert("Profile updated successfully ✅");
+    // simulate a short delay before redirect
+    setTimeout(() => {
+      setSaving(false);
+      setShowEditPopup(false);
+      setPage("Profile"); // reload or redirect back
+    }, 1000);
+
   } catch (err) {
     console.error("Profile update failed:", err);
-    alert("Update failed: " + (err.message || err));
+    setTimeout(() => {
+      setSaving(false);
+      setShowEditPopup(false);
+      setPage("Profile");
+    }, 1000);
   }
 };
+
 
 
   // Upload image to Cloudinary
@@ -3771,6 +4177,49 @@ const handleImageChange = async (e) => {
     alert("Image upload failed. Check console.");
   }
 };
+
+if (saving) {
+  return (
+    <>
+      <style>
+        {`
+          .saving-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+          }
+          .saving-spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid #ddd;
+            border-top: 8px solid #0d6efd;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+          }
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
+          .saving-text {
+            margin-top: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+          }
+        `}
+      </style>
+
+      <div className="saving-overlay">
+        <div className="saving-spinner"></div>
+        <p className="saving-text">Saving changes...</p>
+      </div>
+    </>
+  );
+}
 
 
 if (loading) {
@@ -3825,6 +4274,13 @@ if (loading) {
 
 
   const displayLetter = user?.email ? user.email[0].toUpperCase() : "?";
+
+    const handleLogout = async () => {
+    await signOut(auth);
+    setUser(null);
+    localStorage.removeItem("lastPage");
+    setPage("LoginForm");
+  };
 
   return (
     <div className="screen-profile">
@@ -3929,15 +4385,7 @@ if (loading) {
   </button>
 
   <button className="btn-logout"
-      onClick={async () => {
-      try {
-        await logout();          // Log the user out
-        setPage("Home3");        // Redirect to Home3
-      } catch (err) {
-        console.error("Logout failed:", err);
-        alert("Logout failed. Try again.");
-      }
-    }}
+      onClick={handleLogout}
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -4103,8 +4551,38 @@ if (loading) {
 
 
 import { LanguageProvider } from "./LanguageContext.jsx";
+import { 
+  onAuthStateChanged,
+  signOut
+} from "firebase/auth";
+
 export default function App() {
-  const [page, setPage] = useState("Home3");
+  const [user, setUser] = useState(null);
+   const [page, setPage] = useState(localStorage.getItem("lastPage") || "Home3");
+    useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+
+        // Restore last visited page, default to StartQuiz after login
+        const savedPage = localStorage.getItem("lastPage") || "StartQuiz";
+        setPage(savedPage);
+      } else {
+        setUser(null);
+        setPage("LoginForm"); // redirect to login if not logged in
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Save page whenever it changes and user is logged in
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("lastPage", page);
+    }
+  }, [page, user]);
+
 
   return (
     <LanguageProvider>
@@ -4118,6 +4596,9 @@ export default function App() {
       {page === "QuizPage2" &&  <QuizPage2 setPage={setPage}  />}
       {page === "QuizPage3" &&  <QuizPage3 setPage={setPage}  />}
       {page === "Challenges" && <ChallengesScreen setPage={setPage} />}
+      {page === "Challenges2" && <ChallengesScreen2 setPage={setPage} />}
+      {page === "Challenges3" && <ChallengesScreen3 setPage={setPage} />}
+      {page === "Challenges4" && <ChallengesScreen4 setPage={setPage} />}
       {page === "Activities" && <ActivitiesScreen setPage={setPage} />}
       {page === "Notifications" && <NotificationsScreen setPage={setPage} />}
       {page === "Profile" && <ProfileScreen setPage={setPage} />}
