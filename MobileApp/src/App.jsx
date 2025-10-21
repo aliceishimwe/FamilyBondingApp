@@ -2311,87 +2311,77 @@ const answers = [
   );
 };
 
+// Reusable option component for showing correct answer
+const ChallengeOption = ({ label, value, correctAnswer }) => (
+  <div
+    className={`option ${correctAnswer === value ? "selected" : ""}`}
+    style={{
+      padding: "10px 16px",
+      marginBottom: "10px",
+      borderRadius: "80px",
+      cursor: "default",
+      backgroundColor: correctAnswer === value ? "#007BFF" : "#fff",
+      color: correctAnswer === value ? "#fff" : "#000",
+      userSelect: "none",
+    }}
+  >
+    {label}
+  </div>
+);
+
 const ChallengesScreen = ({ setPage }) => {
   const { t } = useLanguage();
-  const [selected, setSelected] = useState(null);
-
   const StatusIcons = () => (
-    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
-             <svg width="20" height="12" viewBox="0 0 20 12">
-        <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
-        <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
-        <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
-        <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
-      </svg>
-      {/* wifi */}
-      <svg width="20" height="12" viewBox="0 0 24 24">
-        <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <circle cx="12.5" cy="19" r="1.2" fill="#000"/>
-      </svg>
-      {/* battery */}
-      <svg width="28" height="12" viewBox="0 0 28 12">
-        <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/>
-        <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/>
-        <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/>
-      </svg>
+    <div className="status-icons" style={{ display: "flex", gap: "5px" }}>
+      <svg width="20" height="12" viewBox="0 0 20 12"> <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" /> <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" /> <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" /> <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" /> </svg> {/* wifi */} <svg width="20" height="12" viewBox="0 0 24 24"> <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <circle cx="12.5" cy="19" r="1.2" fill="#000"/> </svg> {/* battery */} <svg width="28" height="12" viewBox="0 0 28 12"> <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/> <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/> <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/> </svg>
     </div>
   );
-  
+
   return (
     <div className="screen">
       <div className="header-challenges">
         <div className="status-bar">
-          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <span className="time">{new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
-          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage('QuizPage2')} />
+          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage("QuizPage2")} />
           <div className="bell-container">
-            <Bell size={24} className="nav-icon" onClick={() => setPage('Notifications')} />
-            <User size={24} className="nav-icon" onClick={() => setPage('Profile')} />
+            <Bell size={24} className="nav-icon" onClick={() => setPage("Notifications")} />
+            <User size={24} className="nav-icon" onClick={() => setPage("Profile")} />
           </div>
         </div>
       </div>
+
       <div className="content-challenges">
         <h2 className="title">
           <span className="white-text">{t("challengesTitle")}</span>{" "}
-          <span className="black-text"><span className="white-text">1</span>/4</span>
+          <span className="black-text">
+            <span className="white-text">1</span>/4
+          </span>
         </h2>
-        <p className="questionChallenge">
-          {t("challengeQuestion1")}
-        </p>
+
+        <p className="questionChallenge">{t("challengeQuestion1")}</p>
+
         <div className="options">
-          <label className="option">
-             {t("yesOption1")}
-              <input
-              type="radio"
-              name="answer"
-              checked={selected === "Yego"}
-              onChange={() => setSelected("Yego")}
-            />
-          </label>
-          <label className="option">
-              {t("noOption1")}
-            <input
-              type="radio"
-              name="answer"
-              checked={selected === "Oya"}
-              onChange={() => setSelected("Oya")}
-            />
-          </label>
+          <ChallengeOption label={t("yesOption1")} value="Yego" correctAnswer="Yego" />
+          <ChallengeOption label={t("noOption1")} value="Oya" correctAnswer="Yego" />
         </div>
+
         <div className="dots">
           <span className="dot active"></span>
           <span className="dot"></span>
           <span className="dot"></span>
-           <span className="dot"></span>
+          <span className="dot"></span>
         </div>
+
         <div className="btns">
-          
-        <button className="next-button-back" onClick={() => setPage('QuizPage2')}>  {t("back")}</button>
-        <button className="next-button-next" onClick={() => setPage('Challenges2')}> {t("next")}</button>
+          <button className="next-button-back" onClick={() => setPage("QuizPage2")}>
+            {t("back")}
+          </button>
+          <button className="next-button-next" onClick={() => setPage("Challenges2")}>
+            {t("next")}
+          </button>
         </div>
       </div>
     </div>
@@ -2400,85 +2390,57 @@ const ChallengesScreen = ({ setPage }) => {
 
 const ChallengesScreen2 = ({ setPage }) => {
   const { t } = useLanguage();
-  const [selected, setSelected] = useState(null);
-
   const StatusIcons = () => (
-    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
-             <svg width="20" height="12" viewBox="0 0 20 12">
-        <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
-        <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
-        <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
-        <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
-      </svg>
-      {/* wifi */}
-      <svg width="20" height="12" viewBox="0 0 24 24">
-        <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <circle cx="12.5" cy="19" r="1.2" fill="#000"/>
-      </svg>
-      {/* battery */}
-      <svg width="28" height="12" viewBox="0 0 28 12">
-        <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/>
-        <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/>
-        <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/>
-      </svg>
+    <div className="status-icons" style={{ display: "flex", gap: "5px" }}>
+      <svg width="20" height="12" viewBox="0 0 20 12"> <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" /> <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" /> <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" /> <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" /> </svg> {/* wifi */} <svg width="20" height="12" viewBox="0 0 24 24"> <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <circle cx="12.5" cy="19" r="1.2" fill="#000"/> </svg> {/* battery */} <svg width="28" height="12" viewBox="0 0 28 12"> <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/> <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/> <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/> </svg>
     </div>
   );
-  
+
   return (
     <div className="screen">
       <div className="header-challenges">
         <div className="status-bar">
-          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <span className="time">{new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
-          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage('QuizPage2')} />
+          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage("Challenges")} />
           <div className="bell-container">
-            <Bell size={24} className="nav-icon" onClick={() => setPage('Notifications')} />
-            <User size={24} className="nav-icon" onClick={() => setPage('Profile')} />
+            <Bell size={24} className="nav-icon" onClick={() => setPage("Notifications")} />
+            <User size={24} className="nav-icon" onClick={() => setPage("Profile")} />
           </div>
         </div>
       </div>
+
       <div className="content-challenges">
         <h2 className="title">
           <span className="white-text">{t("challengesTitle")}</span>{" "}
-          <span className="black-text"><span className="white-text">2</span>/4</span>
+          <span className="black-text">
+            <span className="white-text">2</span>/4
+          </span>
         </h2>
-        <p className="questionChallenge">
-          {t("challengeQuestion2")}
-        </p>
+
+        <p className="questionChallenge">{t("challengeQuestion2")}</p>
+
         <div className="options">
-          <label className="option">
-             {t("yesOption2")}
-              <input
-              type="radio"
-              name="answer"
-              checked={selected === "Yego"}
-              onChange={() => setSelected("Yego")}
-            />
-          </label>
-          <label className="option">
-              {t("noOption2")}
-            <input
-              type="radio"
-              name="answer"
-              checked={selected === "Oya"}
-              onChange={() => setSelected("Oya")}
-            />
-          </label>
+          <ChallengeOption label={t("yesOption2")} value="Yego" correctAnswer="Oya" />
+          <ChallengeOption label={t("noOption2")} value="Oya" correctAnswer="Oya" />
         </div>
+
         <div className="dots">
           <span className="dot active"></span>
           <span className="dot active"></span>
           <span className="dot"></span>
-           <span className="dot"></span>
+          <span className="dot"></span>
         </div>
+
         <div className="btns">
-          
-        <button className="next-button-back" onClick={() => setPage('Challenges')}>  {t("back")}</button>
-        <button className="next-button-next" onClick={() => setPage('Challenges3')}> {t("next")}</button>
+          <button className="next-button-back" onClick={() => setPage("Challenges")}>
+            {t("back")}
+          </button>
+          <button className="next-button-next" onClick={() => setPage("Challenges3")}>
+            {t("next")}
+          </button>
         </div>
       </div>
     </div>
@@ -2487,85 +2449,57 @@ const ChallengesScreen2 = ({ setPage }) => {
 
 const ChallengesScreen3 = ({ setPage }) => {
   const { t } = useLanguage();
-  const [selected, setSelected] = useState(null);
-
   const StatusIcons = () => (
-    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
-             <svg width="20" height="12" viewBox="0 0 20 12">
-        <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
-        <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
-        <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
-        <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
-      </svg>
-      {/* wifi */}
-      <svg width="20" height="12" viewBox="0 0 24 24">
-        <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <circle cx="12.5" cy="19" r="1.2" fill="#000"/>
-      </svg>
-      {/* battery */}
-      <svg width="28" height="12" viewBox="0 0 28 12">
-        <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/>
-        <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/>
-        <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/>
-      </svg>
+    <div className="status-icons" style={{ display: "flex", gap: "5px" }}>
+      <svg width="20" height="12" viewBox="0 0 20 12"> <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" /> <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" /> <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" /> <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" /> </svg> {/* wifi */} <svg width="20" height="12" viewBox="0 0 24 24"> <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <circle cx="12.5" cy="19" r="1.2" fill="#000"/> </svg> {/* battery */} <svg width="28" height="12" viewBox="0 0 28 12"> <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/> <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/> <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/> </svg>
     </div>
   );
-  
+
   return (
     <div className="screen">
       <div className="header-challenges">
         <div className="status-bar">
-          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <span className="time">{new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
-          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage('QuizPage2')} />
+          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage("Challenges2")} />
           <div className="bell-container">
-            <Bell size={24} className="nav-icon" onClick={() => setPage('Notifications')} />
-            <User size={24} className="nav-icon" onClick={() => setPage('Profile')} />
+            <Bell size={24} className="nav-icon" onClick={() => setPage("Notifications")} />
+            <User size={24} className="nav-icon" onClick={() => setPage("Profile")} />
           </div>
         </div>
       </div>
+
       <div className="content-challenges">
         <h2 className="title">
           <span className="white-text">{t("challengesTitle")}</span>{" "}
-          <span className="black-text"><span className="white-text">3</span>/4</span>
+          <span className="black-text">
+            <span className="white-text">3</span>/4
+          </span>
         </h2>
-        <p className="questionChallenge">
-          {t("challengeQuestion3")}
-        </p>
+
+        <p className="questionChallenge">{t("challengeQuestion3")}</p>
+
         <div className="options">
-          <label className="option">
-             {t("yesOption3")}
-              <input
-              type="radio"
-              name="answer"
-              checked={selected === "Yego"}
-              onChange={() => setSelected("Yego")}
-            />
-          </label>
-          <label className="option">
-              {t("noOption3")}
-            <input
-              type="radio"
-              name="answer"
-              checked={selected === "Oya"}
-              onChange={() => setSelected("Oya")}
-            />
-          </label>
+          <ChallengeOption label={t("yesOption3")} value="Yego" correctAnswer="Yego" />
+          <ChallengeOption label={t("noOption3")} value="Oya" correctAnswer="Yego" />
         </div>
+
         <div className="dots">
           <span className="dot active"></span>
           <span className="dot active"></span>
           <span className="dot active"></span>
-           <span className="dot"></span>
+          <span className="dot"></span>
         </div>
+
         <div className="btns">
-          
-        <button className="next-button-back" onClick={() => setPage('Challenges2')}>  {t("back")}</button>
-        <button className="next-button-next" onClick={() => setPage('Challenges4')}> {t("next")}</button>
+          <button className="next-button-back" onClick={() => setPage("Challenges2")}>
+            {t("back")}
+          </button>
+          <button className="next-button-next" onClick={() => setPage("Challenges4")}>
+            {t("next")}
+          </button>
         </div>
       </div>
     </div>
@@ -2574,85 +2508,57 @@ const ChallengesScreen3 = ({ setPage }) => {
 
 const ChallengesScreen4 = ({ setPage }) => {
   const { t } = useLanguage();
-  const [selected, setSelected] = useState(null);
-
   const StatusIcons = () => (
-    <div className="status-icons" style={{ display: 'flex', gap: '5px' }}>
-             <svg width="20" height="12" viewBox="0 0 20 12">
-        <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" />
-        <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" />
-        <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" />
-        <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" />
-      </svg>
-      {/* wifi */}
-      <svg width="20" height="12" viewBox="0 0 24 24">
-        <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
-        <circle cx="12.5" cy="19" r="1.2" fill="#000"/>
-      </svg>
-      {/* battery */}
-      <svg width="28" height="12" viewBox="0 0 28 12">
-        <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/>
-        <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/>
-        <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/>
-      </svg>
+    <div className="status-icons" style={{ display: "flex", gap: "5px" }}>
+      <svg width="20" height="12" viewBox="0 0 20 12"> <rect x="0" y="9" width="3" height="3" rx="0.6" fill="#000" /> <rect x="5" y="7" width="3" height="5" rx="0.6" fill="#000" opacity="0.85" /> <rect x="10" y="5" width="3" height="7" rx="0.6" fill="#000" opacity="0.7" /> <rect x="15" y="3" width="3" height="9" rx="0.6" fill="#000" opacity="0.55" /> </svg> {/* wifi */} <svg width="20" height="12" viewBox="0 0 24 24"> <path d="M2 8c5.5-5 14.5-5 20 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <path d="M6 12c3.5-3 8.5-3 12 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <path d="M10 16c1.5-1 3.5-1 5 0" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"/> <circle cx="12.5" cy="19" r="1.2" fill="#000"/> </svg> {/* battery */} <svg width="28" height="12" viewBox="0 0 28 12"> <rect x="1" y="1" width="22" height="10" rx="2" fill="none" stroke="#000" strokeWidth="2"/> <rect x="24" y="4" width="3" height="4" rx="1" fill="#000"/> <rect x="3" y="3" width="18" height="6" rx="1" fill="#000"/> </svg>
     </div>
   );
-  
+
   return (
     <div className="screen">
       <div className="header-challenges">
         <div className="status-bar">
-          <span className="time"> {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          <span className="time">{new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
           <StatusIcons />
         </div>
         <div className="nav-icons">
-          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage('QuizPage2')} />
+          <ChevronLeft size={24} className="nav-icon" onClick={() => setPage("Challenges3")} />
           <div className="bell-container">
-            <Bell size={24} className="nav-icon" onClick={() => setPage('Notifications')} />
-            <User size={24} className="nav-icon" onClick={() => setPage('Profile')} />
+            <Bell size={24} className="nav-icon" onClick={() => setPage("Notifications")} />
+            <User size={24} className="nav-icon" onClick={() => setPage("Profile")} />
           </div>
         </div>
       </div>
+
       <div className="content-challenges">
         <h2 className="title">
           <span className="white-text">{t("challengesTitle")}</span>{" "}
-          <span className="black-text"><span className="white-text">4</span>/4</span>
+          <span className="black-text">
+            <span className="white-text">4</span>/4
+          </span>
         </h2>
-        <p className="questionChallenge">
-          {t("challengeQuestion4")}
-        </p>
+
+        <p className="questionChallenge">{t("challengeQuestion4")}</p>
+
         <div className="options">
-          <label className="option">
-             {t("yesOption4")}
-              <input
-              type="radio"
-              name="answer"
-              checked={selected === "Yego"}
-              onChange={() => setSelected("Yego")}
-            />
-          </label>
-          <label className="option">
-              {t("noOption4")}
-            <input
-              type="radio"
-              name="answer"
-              checked={selected === "Oya"}
-              onChange={() => setSelected("Oya")}
-            />
-          </label>
+          <ChallengeOption label={t("yesOption4")} value="Yego" correctAnswer="Oya" />
+          <ChallengeOption label={t("noOption4")} value="Oya" correctAnswer="Oya" />
         </div>
+
         <div className="dots">
           <span className="dot active"></span>
           <span className="dot active"></span>
           <span className="dot active"></span>
-           <span className="dot active"></span>
+          <span className="dot active"></span>
         </div>
+
         <div className="btns">
-          
-        <button className="next-button-back" onClick={() => setPage('Challenges3')}>  {t("back")}</button>
-        <button className="next-button-next" onClick={() => setPage('Activities')}> {t("next")}</button>
+          <button className="next-button-back" onClick={() => setPage("Challenges3")}>
+            {t("back")}
+          </button>
+          <button className="next-button-next" onClick={() => setPage("Activities")}>
+            {t("next")}
+          </button>
         </div>
       </div>
     </div>
@@ -3581,161 +3487,205 @@ const formatTimestamp = (ts) => {
 };
 
 /* ---------------- ChartBoard Component ---------------- */
-const ChartBoard = ({setPage}) => {
+
+
+
+
+
+const ChartBoard = ({ setPage }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [replyTo, setReplyTo] = useState(null);
   const [file, setFile] = useState(null);
   const [showBottomEmoji, setShowBottomEmoji] = useState(false);
-  const [pickerFor, setPickerFor] = useState(null); // messageId when picking emoji for a message
-  const [showMenuFor, setShowMenuFor] = useState(null); // three-dots menu open
+  const [pickerFor, setPickerFor] = useState(null);
+  const [showMenuFor, setShowMenuFor] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
+  const [editMessageId, setEditMessageId] = useState(null);
+  const [editText, setEditText] = useState("");
+  const [theme, setTheme] = useState("black");
+  const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const [confirmPopup, setConfirmPopup] = useState({
+  visible: false,
+  title: "",
+  message: "",
+  onConfirm: null,
+  onCancel: null,
+});
+
+// helper to show confirm
+const showConfirmPopup = (title, message, onConfirm, onCancel = () => setConfirmPopup({ visible: false })) => {
+  setConfirmPopup({ visible: true, title, message, onConfirm, onCancel });
+};
+
+  // popup states
+  const [popup, setPopup] = useState({ visible: false, title: "", message: "" });
+  
+
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const messagesEndRef = useRef(null);
   const messagesCollectionPath = collection(db, "chats", "familyBoard", "messages");
- const [editMessageId, setEditMessageId] = useState(null);
- const [editText, setEditText] = useState("");
- const [theme, setTheme] = useState("black"); // default theme
-const [showThemeMenu, setShowThemeMenu] = useState(false);
-
-
 
   const currentUid = auth?.currentUser?.uid;
   const currentName = auth?.currentUser?.email || auth?.currentUser?.displayName || "You";
 
-  /* ---- realtime subscription ---- */
+  // realtime subscription
   useEffect(() => {
     const q = query(messagesCollectionPath, orderBy("timestamp", "asc"));
     const unsub = onSnapshot(q, (snap) => {
       setMessages(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
-      // scroll handled in separate effect
     });
     return unsub;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* ---- auto scroll to bottom on new messages ---- */
+  // auto scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages]);
 
-  /* ---- send message (text/file/audio) ---- */
-const sendMessage = async () => {
-  if (!newMessage && !file) return;
+  const showPopup = (title, message) => setPopup({ visible: true, title, message });
+  const closePopup = () => setPopup({ visible: false, title: "", message: "" });
 
-  let fileUrl = null;
-  let fileType = null;
-
-  // ⬇️ Upload file to Cloudinary if attached
-  if (file) {
-    const uploaded = await uploadToCloudinary(file);
-
-    // Cloudinary response should have secure_url + resource_type
-    fileUrl = uploaded.secure_url || uploaded.url || null;
-    fileType = uploaded.resource_type || detectFileType(file.name);
-  }
-
-  let senderName = "Unknown";
-  let senderPic = null;
-
-  // ⬇️ Get sender name + profile picture from Firestore
-  if (auth.currentUser) {
-    const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
-    if (userDoc.exists()) {
-      const data = userDoc.data();
-      senderName = data.fullName || auth.currentUser.email;
-      senderPic = data.photoURL || null; // ✅ this is ONLY for profile picture
-    } else {
-      senderName = auth.currentUser.email;
-    }
-  }
-
-  if (editMessageId) {
-    // EDIT existing message
-    const docRef = doc(db, "chats", "familyBoard", "messages", editMessageId);
-    await updateDoc(docRef, {
-      text: newMessage,
-      fileUrl,   // ✅ store under fileUrl
-      fileType,  // ✅ store type
-      timestamp: serverTimestamp(),
-    });
-    setEditMessageId(null);
-  } else {
-    // SEND new message
-    await addDoc(collection(db, "chats", "familyBoard", "messages"), {
-      senderId: auth.currentUser?.uid || "guest",
-      senderName,
-      senderPic, // ✅ profile pic stays here
-      text: newMessage,
-      replyTo,
-      fileUrl,   // ✅ correct place for chat attachments
-      fileType,
-      timestamp: serverTimestamp(),
-    });
-  }
-
-  setNewMessage("");
-  setFile(null);
-  setReplyTo(null);
-};
-const detectFileType = (filename) => {
-  const ext = filename.split(".").pop().toLowerCase();
-  if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext)) return "image";
-  if (["mp3", "wav", "ogg", "webm"].includes(ext)) return "audio";
-  if (["mp4", "mov", "avi", "mkv"].includes(ext)) return "video";
-  if (["pdf", "doc", "docx", "txt", "ppt", "pptx"].includes(ext)) return "doc";
-  return "raw";
-};
-
-
-  /* ---- add reaction to message (emoji) ---- */
-  const addReaction = async (messageId, emoji) => {
-    const docRef = doc(db, "chats", "familyBoard", "messages", messageId);
-    await updateDoc(docRef, {
-      reactions: arrayUnion({
-        uid: currentUid || "guest",
-        emoji,
-      }),
-    });
-    setPickerFor(null);
+  const detectFileType = (filename) => {
+    const ext = filename.split(".").pop().toLowerCase();
+    if (["jpg", "jpeg", "png", "gif", "webp"].includes(ext)) return "image";
+    if (["mp3", "wav", "ogg", "webm"].includes(ext)) return "audio";
+    if (["mp4", "mov", "avi", "mkv"].includes(ext)) return "video";
+    if (["pdf", "doc", "docx", "txt", "ppt", "pptx"].includes(ext)) return "doc";
+    return "raw";
   };
 
-  /* ---- copy message text ---- */
+  const isImage = (url) => typeof url === "string" && url.match(/\.(jpeg|jpg|png|gif)$/i);
+  const isAudio = (url) => typeof url === "string" && url.match(/\.(webm|wav|mp3|ogg)$/i);
+  const isVideo = (url) => typeof url === "string" && url.match(/\.(mp4|mov|avi|mkv|webm)$/i);
+  const isDoc = (url) => typeof url === "string" && url.match(/\.(pdf|docx?|txt|pptx?)$/i);
+
+  const groupedReactions = (reactions = []) => {
+    const map = new Map();
+    reactions.forEach((r) => map.set(r.emoji, (map.get(r.emoji) || 0) + 1));
+    return Array.from(map.entries());
+  };
+
+  // send message
+  const sendMessage = async () => {
+    if (!newMessage && !file) return;
+
+    let fileUrl = null;
+    let fileType = null;
+
+    if (file) {
+      try {
+        const uploaded = await uploadToCloudinary(file);
+        fileUrl = uploaded.secure_url || uploaded.url || null;
+        fileType = uploaded.resource_type || detectFileType(file.name);
+      } catch (err) {
+        console.error("Upload failed", err);
+        return showPopup("Upload Error", "File upload failed. Check console.");
+      }
+    }
+
+    let senderName = "Unknown";
+    let senderPic = null;
+
+    if (auth.currentUser) {
+      const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        senderName = data.fullName || auth.currentUser.email;
+        senderPic = data.photoURL || null;
+      } else senderName = auth.currentUser.email;
+    }
+
+    try {
+      if (editMessageId) {
+        await updateDoc(doc(db, "chats", "familyBoard", "messages", editMessageId), {
+          text: newMessage,
+          fileUrl,
+          fileType,
+          timestamp: serverTimestamp(),
+        });
+        setEditMessageId(null);
+      } else {
+        await addDoc(messagesCollectionPath, {
+          senderId: auth.currentUser?.uid || "guest",
+          senderName,
+          senderPic,
+          text: newMessage,
+          replyTo,
+          fileUrl,
+          fileType,
+          timestamp: serverTimestamp(),
+        });
+      }
+      setNewMessage("");
+      setFile(null);
+      setReplyTo(null);
+    } catch (err) {
+      console.error("Message send failed", err);
+      showPopup("Send Error", "Failed to send message. Check console.");
+    }
+  };
+
+  // reactions
+  const addReaction = async (messageId, emoji) => {
+    try {
+      await updateDoc(doc(db, "chats", "familyBoard", "messages", messageId), {
+        reactions: arrayUnion({ uid: currentUid || "guest", emoji }),
+      });
+    } catch (err) {
+      console.error("Reaction failed", err);
+      showPopup("Reaction Error", "Failed to add reaction.");
+    } finally {
+      setPickerFor(null);
+    }
+  };
+
+  // copy message
   const copyText = async (text) => {
     try {
       if (!text) return;
       await navigator.clipboard.writeText(text);
-      // small UI feedback could be added
+      showPopup("Copied!", "Message text copied to clipboard.");
     } catch (err) {
       console.warn("Copy failed", err);
+      showPopup("Copy Error", "Failed to copy text.");
+    } finally {
+      setShowMenuFor(null);
     }
-    setShowMenuFor(null);
   };
 
-  /* ---- unsend (delete) message ---- */
-  const unsendMessage = async (messageId, msgSenderId) => {
-    // only allow unsend if current user is sender
-    if (!currentUid || currentUid !== msgSenderId) {
-      alert("You can only unsend your own messages.");
-      return;
-    }
-    if (!confirm("Unsend this message for everyone?")) return;
-    await deleteDoc(doc(db, "chats", "familyBoard", "messages", messageId));
-    setShowMenuFor(null);
-  };
+  // unsend message
+const unsendMessage = async (messageId, msgSenderId) => {
+  if (!currentUid || currentUid !== msgSenderId) {
+    return showPopup("Permission Denied", "You can only unsend your own messages.");
+  }
 
-  /* ---- reply action ---- */
-  const startReplyTo = (msg) => {
-    setReplyTo({ id: msg.id, text: msg.text, senderName: msg.senderName });
-    // focus input maybe
-  };
+  showConfirmPopup(
+    "Confirm Unsend",
+    "Unsend this message for everyone?",
+    async () => {
+      try {
+        await deleteDoc(doc(db, "chats", "familyBoard", "messages", messageId));
+      } catch (err) {
+        console.error("Delete failed", err);
+        showPopup("Delete Error", "Failed to unsend message.");
+      } finally {
+        setShowMenuFor(null);
+        setConfirmPopup({ visible: false });
+      }
+    },
+    () => setConfirmPopup({ visible: false }) // cancel
+  );
+};
 
-  /* ---- voice recording helpers ---- */
+  // reply
+  const startReplyTo = (msg) => setReplyTo({ id: msg.id, text: msg.text, senderName: msg.senderName });
+
+  // recording
   const startRecording = async () => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      alert("Recording not supported in this browser.");
-      return;
+      return showPopup("Recording Not Supported", "This browser does not support audio recording.");
     }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -3743,24 +3693,27 @@ const detectFileType = (filename) => {
       mediaRecorderRef.current = mr;
       audioChunksRef.current = [];
 
-      mr.ondataavailable = (e) => {
-        audioChunksRef.current.push(e.data);
-      };
+      mr.ondataavailable = (e) => audioChunksRef.current.push(e.data);
       mr.onstop = async () => {
         const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
         const fileForUpload = new File([blob], `voice-${Date.now()}.webm`, { type: "audio/webm" });
-        const uploaded = await uploadToCloudinary(fileForUpload);
-        if (uploaded) {
-          await addDoc(messagesCollectionPath, {
-            senderId: currentUid || "guest",
-            senderName: currentName,
-            text: "",
-            fileUrl: uploaded.url,
-            fileType: uploaded.resource_type || "audio",
-            replyTo: replyTo ? { id: replyTo.id, text: replyTo.text, senderName: replyTo.senderName } : null,
-            reactions: [],
-            timestamp: serverTimestamp(),
-          });
+        try {
+          const uploaded = await uploadToCloudinary(fileForUpload);
+          if (uploaded) {
+            await addDoc(messagesCollectionPath, {
+              senderId: currentUid || "guest",
+              senderName: currentName,
+              text: "",
+              fileUrl: uploaded.url,
+              fileType: uploaded.resource_type || "audio",
+              replyTo: replyTo ? { ...replyTo } : null,
+              reactions: [],
+              timestamp: serverTimestamp(),
+            });
+          }
+        } catch (err) {
+          console.error("Recording upload failed", err);
+          showPopup("Upload Error", "Failed to upload recorded audio.");
         }
         setIsRecording(false);
         setReplyTo(null);
@@ -3769,77 +3722,44 @@ const detectFileType = (filename) => {
       mr.start();
       setIsRecording(true);
     } catch (err) {
-      console.error("Recording error:", err);
-      alert("Could not start recording: " + err.message);
+      console.error("Recording error", err);
+      showPopup("Recording Error", err.message || "Could not start recording.");
     }
   };
 
-  const stopRecording = () => {
-    mediaRecorderRef.current?.stop();
+  const stopRecording = () => mediaRecorderRef.current?.stop();
+
+  const editMessage = (messageId, text) => {
+    setEditMessageId(messageId);
+    setNewMessage(text);
+    setShowMenuFor(null);
   };
 
-  /* ---- rendering helpers ---- */
-  const groupedReactions = (reactions = []) => {
-    const map = new Map();
-    reactions.forEach((r) => {
-      map.set(r.emoji, (map.get(r.emoji) || 0) + 1);
-    });
-    return Array.from(map.entries()); // [ [emoji, count], ... ]
-  };const editMessage = (messageId, text) => {
-  setEditMessageId(messageId);
-  setNewMessage(text); // load message into input box
-  setShowMenuFor(null); // close menu
-};
-
-const changeTheme = (selectedTheme) => {
-  setTheme(selectedTheme);
-  setShowThemeMenu(false);
-};
-
-// helpers to check file type safely
-const isImage = (url) =>
-  typeof url === "string" && url.match(/\.(jpeg|jpg|png|gif)$/i);
-
-const isAudio = (url) =>
-  typeof url === "string" && url.match(/\.(webm|wav|mp3|ogg)$/i);
-
-const isVideo = (url) =>
-  typeof url === "string" && url.match(/\.(mp4|mov|avi|mkv|webm)$/i);
-
-const isDoc = (url) =>
-  typeof url === "string" && url.match(/\.(pdf|docx?|txt|pptx?)$/i);
-
+  const changeTheme = (selectedTheme) => {
+    setTheme(selectedTheme);
+    setShowThemeMenu(false);
+  };
 
   return (
     <div className="chat-board">
-  <ChevronLeft size={30} onClick={()=>setPage('Notifications')} className="ChevronLeftChart"></ChevronLeft>
+      <ChevronLeft size={30} onClick={() => setPage("Notifications")} />
       <h2>Family Chat Board</h2>
 
       <div className="messages">
         {messages.map((msg) => {
           const mine = msg.senderId === currentUid;
           return (
-            <div
-              key={msg.id}
-              className={`message ${mine ? "message--me" : "message--other"}`}
-            >
+            <div key={msg.id} className={`message ${mine ? "message--me" : "message--other"}`}>
               <div className="message-row">
-                {/* avatar */}
-                <div className="avatar">
-                  {msg.senderPic ? (
-    <img src={msg.senderPic} alt={msg.senderName} className="avatar-img-chart landscape" />
-  ) : (
-    msg.senderName?.charAt(0).toUpperCase() || "?"
-  )}
+                <div className="avatar-chart">
+                  {msg.senderPic ? <img src={msg.senderPic} alt={msg.senderName} className="avatar-img-chart" /> : msg.senderName?.charAt(0).toUpperCase() || "?"}
                 </div>
-
                 <div className="bubble-wrap">
                   <div className="message-header">
                     <span className="sender-name">{msg.senderName}</span>
                     <span className="timestamp">{formatTimestamp(msg.timestamp)}</span>
                   </div>
 
-                  {/* reply preview */}
                   {msg.replyTo && (
                     <div className="reply-preview">
                       <span className="reply-label">You replied to {msg.replyTo.senderName}:</span>
@@ -3847,36 +3767,19 @@ const isDoc = (url) =>
                     </div>
                   )}
 
-                  {/* message bubble */}
                   <div className="bubble">
-                 {msg.text && <p className="bubble-text">{msg.text}</p>}
-
-
-
-                    {/* file: image or audio */}
-{/* file: image, audio, or doc */}
-{/* file: image, audio, video, or doc */}
-{isAudio(msg.fileUrl) ? (
-  <audio controls src={msg.fileUrl} className="chat-audio" />
-) : isVideo(msg.fileUrl) ? (
-  <video controls src={msg.fileUrl} className="chat-video" />
-) : isImage(msg.fileUrl) ? (
-  <img src={msg.fileUrl} alt="uploaded" className="chat-image" />
-) : isDoc(msg.fileUrl) ? (
-  <a
-    href={msg.fileUrl}
-    target="_blank"
-    rel="noreferrer"
-    className="file-link"
-  >
-    📎 Open document
-  </a>
-) : null}
-
-
+                    {msg.text && <p className="bubble-text">{msg.text}</p>}
+                    {isAudio(msg.fileUrl) ? (
+                      <audio controls src={msg.fileUrl} className="chat-audio" />
+                    ) : isVideo(msg.fileUrl) ? (
+                      <video controls src={msg.fileUrl} className="chat-video" />
+                    ) : isImage(msg.fileUrl) ? (
+                      <img src={msg.fileUrl} alt="uploaded" className="chat-image" />
+                    ) : isDoc(msg.fileUrl) ? (
+                      <a href={msg.fileUrl} target="_blank" rel="noreferrer" className="file-link">📎 Open document</a>
+                    ) : null}
                   </div>
 
-                  {/* reactions display */}
                   {msg.reactions?.length > 0 && (
                     <div className="reactions">
                       {groupedReactions(msg.reactions).map(([emoji, count]) => (
@@ -3884,46 +3787,27 @@ const isDoc = (url) =>
                       ))}
                     </div>
                   )}
-
                 </div>
 
-                {/* actions shown on hover (CSS will reveal this area) */}
                 <div className="message-actions">
-                  <button
-                    className="action-btn"
-                    title="React"
-                    onClick={() => setPickerFor(pickerFor === msg.id ? null : msg.id)}
-                  >😊</button>
-
-                  <button
-                    className="action-btn"
-                    title="Reply"
-                    onClick={() => startReplyTo(msg)}
-                  >↩</button>
+                  <button className="action-btn" title="React" onClick={() => setPickerFor(pickerFor === msg.id ? null : msg.id)}>😊</button>
+                  <button className="action-btn" title="Reply" onClick={() => startReplyTo(msg)}>↩</button>
 
                   <div className="three-dots">
-                    <button
-                      className="action-btn"
-                      onClick={() => setShowMenuFor(showMenuFor === msg.id ? null : msg.id)}
-                      title="More"
-                    >⋯</button>
+                    <button className="action-btn" onClick={() => setShowMenuFor(showMenuFor === msg.id ? null : msg.id)} title="More">⋯</button>
 
-{showMenuFor === msg.id && (
-  <div className="menu-dropdown">
-    <button onClick={() => copyText(msg.text)}>Copy</button>
-    {mine && <button onClick={() => editMessage(msg.id, msg.text)}>Edit</button>}
-    {mine && <button onClick={() => unsendMessage(msg.id, msg.senderId)}>Unsend</button>}
-  </div>
-)}
-
+                    {showMenuFor === msg.id && (
+                      <div className="menu-dropdown">
+                        <button onClick={() => copyText(msg.text)}>Copy</button>
+                        {mine && <button onClick={() => editMessage(msg.id, msg.text)}>Edit</button>}
+                        {mine && <button onClick={() => unsendMessage(msg.id, msg.senderId)}>Unsend</button>}
+                      </div>
+                    )}
                   </div>
 
-                  {/* emoji picker for this message (popover) */}
                   {pickerFor === msg.id && (
                     <div className="inline-emoji-picker">
-                      <EmojiPicker
-                        onEmojiClick={(e) => addReaction(msg.id, e.emoji)}
-                      />
+                      <EmojiPicker onEmojiClick={(e) => addReaction(msg.id, e.emoji)} />
                     </div>
                   )}
                 </div>
@@ -3931,12 +3815,9 @@ const isDoc = (url) =>
             </div>
           );
         })}
-
-        {/* bottom anchor to scroll to */}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* replying banner */}
       {replyTo && (
         <div className="replying-to">
           Replying to <strong>{replyTo.senderName}</strong>: "{replyTo.text}"
@@ -3944,73 +3825,99 @@ const isDoc = (url) =>
         </div>
       )}
 
-      {/* input area */}
-      
       <div className="input-area">
-        {editMessageId && (
-  <button
-    className="cancel-edit"
-    title="Cancel editing"
-    onClick={() => { setEditMessageId(null); setNewMessage(""); }}
-  >
-    ×
-  </button>
-)}
+        {editMessageId && <button className="cancel-edit" title="Cancel editing" onClick={() => { setEditMessageId(null); setNewMessage(""); }}>×</button>}
 
         <div className="left-controls">
-          <button
-            className="icon-btn"
-            onClick={() => setShowBottomEmoji(!showBottomEmoji)}
-            title="Emoji"
-          >😊</button>
-
-          <button
-            className={`icon-btn ${isRecording ? "recording" : ""}`}
-            onMouseDown={() => {
-              // long press could be used; here simple toggle
-              if (!isRecording) startRecording();
-            }}
-            onMouseUp={() => {
-              if (isRecording) stopRecording();
-            }}
-            title="Hold to record (or click to start)"
-          >
-            🎙
-          </button>
-
+          <button className="icon-btn" onClick={() => setShowBottomEmoji(!showBottomEmoji)}>😊</button>
+          <button className={`icon-btn ${isRecording ? "recording" : ""}`} onMouseDown={startRecording} onMouseUp={stopRecording}>🎙</button>
           <label className="file-label" title="Attach image or file">
             📎
-            <input
-              type="file"
-              accept="image/*,audio/*"
-              style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
-            />
+            <input type="file" accept="image/*,audio/*" style={{ display: "none" }} onChange={(e) => setFile(e.target.files[0])} />
           </label>
         </div>
 
-        <input
-          type="text"
-          placeholder="Message..."
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") sendMessage(); }}
-        />
-
+        <input type="text" placeholder="Message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") sendMessage(); }} />
         <button className="send-btn" onClick={sendMessage}>Send</button>
 
         {showBottomEmoji && (
           <div className="bottom-emoji-pop">
-            <EmojiPicker
-              onEmojiClick={(ev) => setNewMessage((m) => m + ev.emoji)}
-            />
+            <EmojiPicker onEmojiClick={(ev) => setNewMessage((m) => m + ev.emoji)} />
           </div>
         )}
-        
       </div>
+
+      {/* Popup */}
+      {popup.visible && (
+        <div className="popup-overlay">
+          <div className="popup-card">
+            <button className="popup-close" onClick={closePopup}>✖</button>
+            <h3>{popup.title}</h3>
+            <p>{popup.message}</p>
+          </div>
+          <style>{`
+            .popup-overlay {
+              position: fixed; inset: 0;
+              background: rgba(0,0,0,0.6);
+              display: flex; align-items: center; justify-content: center;
+              z-index: 9999;
+            }
+            .popup-card {
+              background: #fff; padding: 24px; border-radius: 16px; width: 90%; max-width: 420px;
+              box-shadow: 0 8px 40px rgba(0,0,0,0.3); position: relative;
+              animation: slideIn 0.3s ease-out;
+            }
+            @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+            .popup-close {
+              position: absolute; top: 12px; right: 12px; border: none; background: none; font-size: 20px; cursor: pointer;
+            }
+            .popup-card h3 { margin-top: 0; }
+          `}</style>
+        </div>
+      )}
+      {/* Confirm Popup */}
+{confirmPopup.visible && (
+  <div className="popup-overlay">
+    <div className="popup-card">
+      <h3>{confirmPopup.title}</h3>
+      <p>{confirmPopup.message}</p>
+      <div className="popup-buttons">
+        <button onClick={confirmPopup.onConfirm}>Yes</button>
+        <button onClick={confirmPopup.onCancel}>No</button>
+      </div>
+    </div>
+    <style>{`
+      .popup-overlay {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.6);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 9999;
+      }
+      .popup-card {
+        background: #fff; padding: 24px; border-radius: 16px; width: 90%; max-width: 420px;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.3); position: relative;
+        animation: slideIn 0.3s ease-out;
+        color: black;
+      }
+      .popup-buttons {
+        display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px;
+      }
+      .popup-buttons button {
+        padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer;
+      }
+      .popup-buttons button:first-child { background: #d9534f; color: white; }
+      .popup-buttons button:last-child { background: #ccc; color: black; }
+      @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    `}</style>
+  </div>
+)}
+
     </div>
   );
 };
+
+
+
 
 
 
@@ -4039,6 +3946,11 @@ const [newPassword, setNewPassword] = useState("");
 const [showNewPassword, setShowNewPassword] = useState(false);
 const [currentPassword, setCurrentPassword] = useState("");
 const [saving, setSaving] = useState(false);
+const [showImageErrorPopup, setShowImageErrorPopup] = useState(false);
+const [imageErrorMessage, setImageErrorMessage] = useState("");
+const [showImagePopup, setShowImagePopup] = useState(false);
+
+
 
 
 
@@ -4174,7 +4086,10 @@ const handleImageChange = async (e) => {
     setProfilePic(url);
   } catch (err) {
     console.error("Upload failed:", err);
-    alert("Image upload failed. Check console.");
+
+    // Show popup instead of alert
+    setImageErrorMessage("Image upload failed. Check console.");
+    setShowImageErrorPopup(true);
   }
 };
 
@@ -4294,24 +4209,30 @@ if (loading) {
       </div>
 
       <div className="profile-card">
-        <div className="avatar-wrapper">
-{profilePic ? (
-  <img src={profilePic} alt={`${displayLetter}`} className="avatar-img" />
-) : (
-  <div className="avatar-circle-profile">{displayLetter}</div>
-)}
+<div className="avatar-wrapper">
+  {profilePic ? (
+    <img
+      src={profilePic}
+      alt={`${displayLetter}`}
+      className="avatar-img"
+      onClick={() => setShowImagePopup(true)} // open popup on click
+      style={{ cursor: "pointer" }}
+    />
+  ) : (
+    <div className="avatar-circle-profile">{displayLetter}</div>
+  )}
 
-          {/* + sign below avatar */}
-          <label className="avatar-upload">
-            +
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{ display: "none" }}
-            />
-          </label>
-        </div>
+  {/* + sign below avatar */}
+  <label className="avatar-upload">
+    +
+    <input
+      type="file"
+      accept="image/*"
+      onChange={handleImageChange}
+      style={{ display: "none" }}
+    />
+  </label>
+</div>
 
         <h3>{displayName}</h3>
                 {/* User Info with icons */}
@@ -4542,6 +4463,65 @@ if (loading) {
     </div>
   </>
 )}
+
+{showImageErrorPopup && (
+  <>
+    <div className="popup-overlay">
+      <div className="popup-card">
+        <button
+          className="popup-close"
+          onClick={() => setShowImageErrorPopup(false)}
+        >
+          ✖
+        </button>
+        <h3>Error</h3>
+        <p>{imageErrorMessage}</p>
+        <button
+          className="popup-btn"
+          onClick={() => setShowImageErrorPopup(false)}
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </>
+)}
+
+{showImagePopup && (
+  <div className="popup-overlay">
+    <div className="popup-card">
+      <button
+        className="popup-close"
+        onClick={() => setShowImagePopup(false)}
+      >
+        ✖
+      </button>
+      <h3>Profile Picture</h3>
+      <img
+        src={profilePic}
+        alt="Profile"
+        style={{ width: "100%", borderRadius: "12px" }}
+      />
+      <button
+        className="popup-btn"
+        style={{ background: "#dc3545", marginTop: "12px" }}
+        onClick={async () => {
+          try {
+            const userRef = doc(db, "users", user.uid);
+            await setDoc(userRef, { photoURL: "" }, { merge: true });
+            setProfilePic(null);
+            setShowImagePopup(false);
+          } catch (err) {
+            console.error("Failed to delete image:", err);
+          }
+        }}
+      >
+        Delete Photo
+      </button>
+    </div>
+  </div>
+)}
+
 
     </div>
   );

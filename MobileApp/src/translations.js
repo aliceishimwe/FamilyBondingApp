@@ -56,8 +56,8 @@ yesOption3: "Yes",
 noOption3: "No",
 
 challengeQuestion4: "Parents should avoid talking about puberty and relationships with their children.",
-yesOption4: "No",
-noOption4: "Yes",
+yesOption4: "Yes",
+noOption4: "No",
 
     // ActivitiesScreen translations
     activitiesTitle: "Family Daily Activities",
@@ -171,8 +171,8 @@ yesOption3: "Yego",
 noOption3: "Oya ",
 
 challengeQuestion4: "Ababyeyi bakwiye kwirinda kuganiriza abana babo ibijyanye n’ubwangavu n’imibanire.",
-yesOption4: "Oya",
-noOption4: "Yego ",
+yesOption4: "Yego",
+noOption4: "Oya ",
 
     // ActivitiesScreen translations
     activitiesTitle: "Imirimo y’umuryango ya buri munsi",
@@ -292,8 +292,8 @@ yesOption3: "Oui",
 noOption3: "Non",
 
 challengeQuestion4: "Les parents doivent éviter de parler de la puberté et des relations avec leurs enfants.",
-yesOption4: "Non",
-noOption4: "Oui",
+yesOption4: "Oui",
+noOption4: "Non",
 
     // ActivitiesScreen translations
     activitiesTitle: "Activités familiales quotidiennes",
