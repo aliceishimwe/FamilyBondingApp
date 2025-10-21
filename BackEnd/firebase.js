@@ -20,3 +20,4 @@ export const auth = getAuth(app);
 console.log("Auth registered:", auth);
 
 export const db = getFirestore(app);
+export { firebaseConfig };
