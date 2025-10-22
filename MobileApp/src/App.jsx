@@ -1702,17 +1702,20 @@ const Home3 = ({ setPage }) => {
 </h1>
           <p>{t("subtitle")}</p>
         </div>
-    <svg width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', bottom: '2.5rem' }}>
-              {/* Parent 1 (left) */}
-              <rect x="50" y="100" width="40" height="150" fill="#2d2d2d" />
-              <rect x="55" y="100" width="30" height="20" fill="#f5f5f5" />
-              <circle cx="70" cy="95" r="15" fill="#f5f5f5" />
+<div style={{ position: 'absolute', bottom: '2.5rem', display: 'flex', gap: '4rem' }}>
+  {/* Parent 1 (left) */}
+  <img
+    src="Fam2.png"   // Replace with your actual image path or URL
+    alt="Parent 1"
+    width="170"
+    height="210"
+    style={{ borderRadius: '1rem', objectFit: 'cover', boxShadow: '0 4px 10px rgba(0,0,0,0.2)' }}
+  />
 
-              {/* Parent 2 (right) */}
-              <rect x="160" y="100" width="40" height="150" fill="#2d2d2d" />
-              <rect x="165" y="100" width="30" height="20" fill="#f5f5f5" />
-              <circle cx="180" cy="95" r="15" fill="#f5f5f5" />
-            </svg>
+  {/* Parent 2 (right) */}
+
+</div>
+
 
         <button className="continue-button"   onClick={() => setPage('Home2')}>
           <span style={{color:'#a6a6a6ff'}} className="continue-loading"> {t("continue")}</span>
